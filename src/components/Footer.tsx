@@ -7,7 +7,6 @@ export default function Footer() {
 
   const handleNewsletter = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Newsletter:', email);
     setEmail('');
     // Optionally add a toast here
   };
