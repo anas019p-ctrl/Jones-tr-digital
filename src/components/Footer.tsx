@@ -4,110 +4,112 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
 
   const handleNewsletter = (e: React.FormEvent) => {
     e.preventDefault();
+    setSubscribed(true);
     setEmail('');
-    // Optionally add a toast here
+    setTimeout(() => setSubscribed(false), 5000);
   };
 
   return (
-    <footer className="bg-background border-t border-border pt-20 pb-10 mt-auto relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10" />
+    <footer className="bg-void border-t border-white/5 pt-20 pb-10 mt-auto relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-cyber-cyan/5 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-cyber-purple/5 rounded-full blur-[100px]" />
+      </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
           {/* Brand */}
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold font-display text-foreground tracking-tight">
-              JONES TR <span className="text-primary">DIGITAL</span>
-            </h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Trasformiamo il tuo business online con siti web professionali,
-              automazioni intelligenti e un design che lascia il segno.
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 border border-cyber-cyan/50 rounded-lg flex items-center justify-center bg-cyan-950/20 shadow-[0_0_15px_rgba(0,242,255,0.2)]">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00F2FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                  <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold font-display text-white tracking-tight">
+                JONES TR <span className="text-cyber-cyan">DIGITAL</span>
+              </h3>
+            </div>
+            <p className="text-white/60 leading-relaxed text-sm">
+              Innovazione digitale e design d'avanguardia. Il tuo partner tecnologico per l'eccellenza online.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all group">
-                <Linkedin size={18} className="group-hover:scale-110" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all group">
-                <Facebook size={18} className="group-hover:scale-110" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all group">
-                <Instagram size={18} className="group-hover:scale-110" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all group">
-                <Twitter size={18} className="group-hover:scale-110" />
-              </a>
-              <a href="https://youtube.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all group">
-                <Youtube size={18} className="group-hover:scale-110" />
-              </a>
-              <a href="https://tiktok.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all group">
-                <div className="group-hover:scale-110">
-                  {/* Custom TikTok SVG since older Lucide might not have it or as fallback */}
-                  <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-                </div>
+            <div className="flex items-center gap-3 text-white/60 group">
+              <Mail size={18} className="text-cyber-cyan group-hover:scale-110 transition-transform" />
+              <a href="mailto:jonestrdigital@gmail.com" className="hover:text-cyber-cyan transition-colors text-sm font-medium">
+                jonestrdigital@gmail.com
               </a>
             </div>
           </div>
 
           {/* Servizi */}
           <div>
-            <h4 className="font-bold text-foreground mb-6 uppercase text-xs tracking-[0.2em]">Servizi</h4>
-            <ul className="space-y-4 text-muted-foreground">
-              <li><Link to="/#prezzi" className="hover:text-primary transition-colors">Start</Link></li>
-              <li><Link to="/#prezzi" className="hover:text-primary transition-colors">Standard</Link></li>
-              <li><Link to="/#prezzi" className="hover:text-primary transition-colors">Pro</Link></li>
-              <li><Link to="/#prezzi" className="hover:text-primary transition-colors">E-commerce</Link></li>
+            <h4 className="font-mono text-[11px] text-cyber-cyan/50 tracking-[0.3em] mb-6 uppercase">Servizi</h4>
+            <ul className="space-y-4 text-white/60 text-sm">
+              <li><Link to="/#prezzi" className="hover:text-cyber-cyan transition-colors">Digital Strategy</Link></li>
+              <li><Link to="/#prezzi" className="hover:text-cyber-cyan transition-colors">Web Development</Link></li>
+              <li><Link to="/#prezzi" className="hover:text-cyber-cyan transition-colors">AI Integration</Link></li>
+              <li><Link to="/#prezzi" className="hover:text-cyber-cyan transition-colors">Cloud Solutions</Link></li>
             </ul>
           </div>
 
           {/* Company */}
           <div>
-            <h4 className="font-bold text-foreground mb-6 uppercase text-xs tracking-[0.2em]">Azienda</h4>
-            <ul className="space-y-4 text-muted-foreground">
-              <li><Link to="/portfolio" className="hover:text-primary transition-colors">Portfolio</Link></li>
-              <li><Link to="/#chi-siamo" className="hover:text-primary transition-colors">Chi Siamo</Link></li>
-              <li><Link to="/#faq" className="hover:text-primary transition-colors">Domande Frequenti</Link></li>
-              <li><Link to="/#contatti" className="hover:text-primary transition-colors">Contatti</Link></li>
+            <h4 className="font-mono text-[11px] text-cyber-cyan/50 tracking-[0.3em] mb-6 uppercase">Azienda</h4>
+            <ul className="space-y-4 text-white/60 text-sm">
+              <li><Link to="/portfolio" className="hover:text-cyber-cyan transition-colors">Portfolio</Link></li>
+              <li><Link to="/#chi-siamo" className="hover:text-cyber-cyan transition-colors">Chi Siamo</Link></li>
+              <li><Link to="/#faq" className="hover:text-cyber-cyan transition-colors">FAQ</Link></li>
+              <li><Link to="/#contatti" className="hover:text-cyber-cyan transition-colors">Contatti</Link></li>
             </ul>
           </div>
 
-          {/* Newsletter (PDF Requirement) */}
+          {/* Newsletter */}
           <div>
-            <h4 className="font-bold text-foreground mb-6 uppercase text-xs tracking-[0.2em]">Newsletter</h4>
-            <p className="text-sm text-muted-foreground mb-6">
-              Iscriviti per ricevere consigli su come far crescere la tua attività.
+            <h4 className="font-mono text-[11px] text-cyber-cyan/50 tracking-[0.3em] mb-6 uppercase">Newsletter</h4>
+            <p className="text-xs text-white/50 mb-6 leading-relaxed">
+              Ricevi gli ultimi aggiornamenti sulle tecnologie emergenti.
             </p>
-            <form onSubmit={handleNewsletter} className="space-y-3">
-              <input
-                type="email"
-                placeholder="La tua migliore email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-5 py-3 rounded-xl bg-card border border-border text-foreground focus:ring-2 focus:ring-primary outline-none transition-all placeholder:text-muted-foreground/50"
-                required
-              />
-              <button type="submit" className="w-full bg-primary text-primary-foreground px-6 py-3 rounded-xl 
-                                font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/10">
-                Iscriviti Ora
-              </button>
-            </form>
+            {subscribed ? (
+              <div className="bg-cyber-cyan/10 border border-cyber-cyan/20 p-4 rounded-xl text-cyber-cyan font-medium text-xs">
+                ✅ Iscrizione completata.
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletter} className="space-y-3">
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm focus:border-cyber-cyan outline-none transition-all"
+                  required
+                />
+                <button type="submit" className="w-full bg-cyber-cyan text-void px-6 py-2.5 rounded-lg 
+                                  font-bold hover:scale-[1.02] transition-all shadow-lg shadow-cyber-cyan/10 text-xs">
+                  ISCRIVITI
+                </button>
+              </form>
+            )}
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <span>© 2026 JONES TR DIGITAL</span>
-            <Link to="/admin" className="hover:text-primary flex items-center gap-2">
-              <Shield size={14} /> Admin Area
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-6 text-[10px] font-mono text-white/40 tracking-widest uppercase">
+            <span>© 2024 JONES TR DIGITAL</span>
+            <Link to="/admin" className="hover:text-cyber-cyan flex items-center gap-2">
+              <Shield size={12} /> Admin
             </Link>
           </div>
-          <div className="flex gap-8 text-sm text-muted-foreground">
-            <Link to="/faq" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link to="/faq" className="hover:text-primary transition-colors">Termini di Servizio</Link>
+          <div className="flex gap-8 text-[10px] font-mono text-white/40 tracking-widest uppercase">
+            <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link to="/cookie" className="hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>
       </div>

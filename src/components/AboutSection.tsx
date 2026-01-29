@@ -1,5 +1,7 @@
-import { Target, Lightbulb, Users, Rocket, Shield, Heart } from "lucide-react";
+import { Target, Lightbulb, Users, Rocket, Shield, Heart, Cpu, Code, Cog } from "lucide-react";
+import { motion } from "framer-motion";
 import logo3D from "@/assets/logo-3d.png";
+import aboutTech from "@/assets/about-tech.png";
 
 const values = [
   {
@@ -42,85 +44,109 @@ const AboutSection = () => {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 dark:bg-accent/10 rounded-full blur-3xl" />
       <div className="absolute top-1/4 left-0 w-80 h-80 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl" />
 
+      {/* Floating Automation Nodes */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
+        <motion.div
+          animate={{ x: [0, 20, 0], y: [0, -20, 0], rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity }}
+          className="absolute top-1/4 right-1/4"
+        >
+          <Cpu className="text-primary w-12 h-12" />
+        </motion.div>
+        <motion.div
+          animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
+          transition={{ duration: 15, repeat: Infinity }}
+          className="absolute bottom-1/3 left-1/4"
+        >
+          <Code className="text-accent w-10 h-10" />
+        </motion.div>
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/3 left-10"
+        >
+          <Cog className="text-primary/50 w-16 h-16" />
+        </motion.div>
+      </div>
+
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
           {/* Left - Content */}
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <span className="text-sm font-medium text-primary">Chi Siamo</span>
+              <span className="text-sm font-medium text-primary uppercase tracking-widest">Digital Hub</span>
             </div>
 
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground">
-              Rendiamo la Tecnologia
+            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-[1.1]">
+              Automazione & Design
               <br />
-              <span className="gradient-text">Accessibile a Tutti</span>
+              <span className="gradient-text">Il Futuro è qui.</span>
             </h2>
 
             <div className="space-y-4 text-muted-foreground text-lg">
               <p>
-                <strong className="text-foreground">JONES TR DIGITAL</strong> aiuta le piccole 
-                e medie imprese a crescere online. Sappiamo che la tecnologia può sembrare 
-                complicata, per questo la rendiamo semplice.
+                In <strong className="text-foreground">JONES TR DIGITAL</strong> trasformiamo la complessità in semplicità.
+                Utilizziamo le ultime tecnologie di <span className="text-primary font-medium">automazione</span> e
+                <span className="text-accent font-medium"> generazione AI</span> per creare siti ed app che lavorano per te.
               </p>
               <p>
-                Non serve essere esperti di computer. Tu ci racconti cosa ti serve 
-                per la tua attività, noi creiamo gli strumenti giusti e ti insegniamo 
-                ad usarli.
-              </p>
-              <p>
-                <strong className="text-foreground">Il nostro obiettivo?</strong> Farti 
-                risparmiare tempo, trovare nuovi clienti e far crescere il tuo business.
+                I nostri uffici digitali sono sempre attivi, pronti a sfornare soluzioni su misura
+                che scalano il tuo business in modo automatico e ripetitivo.
               </p>
             </div>
 
             {/* Quick Stats */}
             <div className="flex flex-wrap gap-8 pt-4">
-              <div>
-                <div className="font-display text-3xl font-bold gradient-text">2019</div>
-                <p className="text-sm text-muted-foreground">Dal 2019 al tuo fianco</p>
+              <div className="glass-card p-4 text-center min-w-[120px]">
+                <div className="font-display text-3xl font-bold gradient-text">24/7</div>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">Automazione</p>
               </div>
-              <div>
-                <div className="font-display text-3xl font-bold gradient-text">150+</div>
-                <p className="text-sm text-muted-foreground">Attività aiutate</p>
+              <div className="glass-card p-4 text-center min-w-[120px]">
+                <div className="font-display text-3xl font-bold gradient-text">99%</div>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">Efficienza</p>
               </div>
-              <div>
-                <div className="font-display text-3xl font-bold gradient-text">100%</div>
-                <p className="text-sm text-muted-foreground">In italiano</p>
+              <div className="glass-card p-4 text-center min-w-[120px]">
+                <div className="font-display text-3xl font-bold gradient-text">∞</div>
+                <p className="text-xs uppercase tracking-wider text-muted-foreground">Scalabilità</p>
               </div>
             </div>
           </div>
 
-          {/* Right - Visual */}
-          <div className="relative">
-            <div className="glass-card p-8 md:p-12">
-              {/* Decorative Grid */}
-              <div className="absolute inset-0 cyber-grid opacity-20 rounded-2xl" />
-              
-              {/* Logo Large */}
-              <div className="relative text-center py-12">
-                <div className="inline-flex items-center justify-center w-40 h-40 rounded-2xl mb-6 overflow-hidden">
-                  <img 
-                    src={logo3D} 
-                    alt="JONES TR DIGITAL" 
-                    className="w-full h-full object-cover animate-float"
-                  />
-                </div>
-                <h3 className="font-display text-2xl font-bold text-foreground mb-2">
-                  JONES TR DIGITAL
-                </h3>
-                <p className="text-muted-foreground">
-                  Semplice • Affidabile • Vicino a Te
-                </p>
-              </div>
-            </div>
+          {/* Right - Visual (New Image + Effects) */}
+          <div className="relative group">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="relative z-10"
+            >
+              <div className="glass-card p-4 overflow-hidden rounded-3xl border-primary/20 shadow-2xl shadow-primary/10 transition-all duration-500 group-hover:border-primary/50">
+                <img
+                  src={aboutTech}
+                  alt="Futuristic Workspace"
+                  className="w-full rounded-2xl object-cover hover:scale-105 transition-transform duration-700"
+                />
 
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -right-4 w-24 h-24 glass-card flex items-center justify-center animate-float">
-              <Rocket className="w-8 h-8 text-primary" />
-            </div>
-            <div className="absolute -bottom-4 -left-4 w-20 h-20 glass-card flex items-center justify-center animate-float" style={{ animationDelay: "-2s" }}>
-              <Lightbulb className="w-6 h-6 text-accent" />
-            </div>
+                {/* Overlay Scanning Effect */}
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                <motion.div
+                  animate={{ top: ["0%", "100%", "0%"] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  className="absolute left-0 right-0 h-0.5 bg-primary/50 shadow-[0_0_15px_rgba(34,211,238,0.8)] z-20 pointer-events-none"
+                />
+              </div>
+
+              {/* Floating Tech Labels */}
+              <div className="absolute -top-6 -left-6 bg-card border border-border px-4 py-2 rounded-xl text-xs font-bold text-primary shadow-lg animate-float">
+                NODE_GEN_SITE
+              </div>
+              <div className="absolute -bottom-6 -right-6 bg-card border border-border px-4 py-2 rounded-xl text-xs font-bold text-accent shadow-lg animate-float" style={{ animationDelay: "-2s" }}>
+                AUTO_APP_SYNC
+              </div>
+            </motion.div>
+
+            {/* Glow Background for image */}
+            <div className="absolute inset-0 bg-primary/20 blur-[100px] -z-10 rounded-full scale-125 opacity-30 animate-pulse" />
           </div>
         </div>
 
@@ -129,7 +155,7 @@ const AboutSection = () => {
           <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
             Perché <span className="gradient-text">Sceglierci</span>
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {values.map((value, index) => (
               <div

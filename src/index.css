@@ -307,6 +307,27 @@
       opacity: 0;
     }
   }
+
+  /* HUD UTILITIES from tr-digital */
+  .hud-circle {
+    @apply absolute rounded-full border border-cyber-cyan/10;
+  }
+
+  .hud-circle-glow {
+    @apply absolute rounded-full border border-cyber-cyan/20 shadow-[0_0_30px_rgba(0, 242, 255, 0.1)];
+  }
+
+  .badge-cyber {
+    @apply px-4 py-1.5 rounded-full border border-cyber-cyan/30 bg-cyber-cyan/10 text-cyber-cyan text-xs font-medium backdrop-blur-md;
+  }
+
+  .btn-gradient {
+    @apply px-8 py-4 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-purple text-white font-bold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0, 242, 255, 0.4)] flex items-center gap-2;
+  }
+
+  .btn-ghost-cyber {
+    @apply px-8 py-4 rounded-xl border border-white/10 bg-white/5 text-white font-medium transition-all duration-300 hover:bg-white/10 flex items-center gap-2;
+  }
 }
 
 @layer utilities {

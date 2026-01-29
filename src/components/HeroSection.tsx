@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight, Play } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { supabase } from "@/integrations/supabase/client";
 
 export default function HeroSection() {
@@ -134,11 +135,11 @@ export default function HeroSection() {
                              hover:scale-105 transition-all shadow-xl shadow-primary/20 text-lg">
               Parliamo del Tuo Progetto <ArrowRight size={22} />
             </a>
-            <a href="/come-funziona" className="glass-card px-10 py-5 
+            <Link to="/come-funziona" className="glass-card px-10 py-5 
                              rounded-xl font-bold flex items-center justify-center gap-3
                              hover:bg-primary/5 transition-all text-center text-lg border border-border/50">
               <Play size={22} className="fill-current" /> Come Funziona
-            </a>
+            </Link>
           </motion.div>
 
           {/* Quick Stats Summary */}
