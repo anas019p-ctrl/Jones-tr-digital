@@ -1,91 +1,61 @@
+import { useState, useEffect } from "react";
 import { Check, Sparkles, Zap, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
-const pricingPlans = [
-  {
-    name: "Start",
-    icon: Zap,
-    price: "590",
-    description: "La vetrina essenziale per professionisti",
-    features: [
-      "Sito Landing Page (1 pagina)",
-      "Design Futuristico Responsive",
-      "Form Contatti Base",
-      "SEO Base",
-      "Hosting 1 anno incluso",
-      "Certificato SSL Sicuro",
-    ],
-    popular: false,
-    cta: "Inizia Ora",
-  },
-  {
-    name: "Standard",
-    icon: Sparkles,
-    price: "1.290",
-    description: "Sito completo per piccole attività",
-    features: [
-      "Sito Multi-pagina (fino a 5)",
-      "Integrazione AI Base",
-      "Dashboard Gestione Contatti",
-      "Google Business Setup",
-      "Assistenza Standard",
-      "Training sull'uso",
-    ],
-    popular: false,
-    cta: "Scegli Standard",
-  },
-  {
-    name: "Pro",
-    icon: Crown,
-    price: "2.890",
-    description: "Il top per aziende in crescita",
-    features: [
-      "Sito Premium Illimitato",
-      "Assistente AI 24/7 Avanzato",
-      "Automazioni Workflows",
-      "SEO Avanzato Local",
-      "Supporto Prioritario",
-      "Social Media Integration",
-    ],
-    popular: true,
-    cta: "Più Scelto",
-  },
-  {
-    name: "E-Commerce",
-    icon: Sparkles,
-    price: "4.500",
-    description: "Vendi ovunque, in ogni momento",
-    features: [
-      "Negozio Online Completo",
-      "Gestione Inventario AI",
-      "Pagamenti Sicuri (Stripe/PayPal)",
-      "Recupero Carrelli Abbandonati",
-      "Report Vendite Avanzati",
-      "1 Anno di Manutenzione",
-    ],
-    popular: false,
-    cta: "Apri il tuo Shop",
-  },
-  {
-    name: "Enterprise",
-    icon: Crown,
-    price: "Su Misura",
-    isCustom: true,
-    description: "Soluzioni su misura per grandi volumi",
-    features: [
-      "Infrastruttura Scalabile Cloud",
-      "Sistemi ERP/CRM Custom",
-      "Analisi Predittiva AI",
-      "Sicurezza Livello Militare",
-      "Consulente Dedicato 24/7",
-      "SLA Garantito",
-    ],
-    popular: false,
-    cta: "Contattaci",
-  },
-];
+const iconMap: Record<string, any> = {
+  Zap,
+  Sparkles,
+  Crown
+};
 
 const PricingSection = () => {
+  const [plans, setPlans] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("services")
+          .select("*")
+          .order("order_index", { ascending: true });
+
+        if (error) throw error;
+
+        // Map database records to UI structure
+        const mappedPlans = data?.map(pkg => ({
+          name: pkg.name,
+          icon: iconMap[pkg.name] || (pkg.highlighted ? Crown : Sparkles),
+          price: pkg.price,
+          description: pkg.name === "Enterprise" ? "Soluzioni su misura per grandi volumi" : "Piano professionale gestito",
+          features: pkg.features || [],
+          popular: pkg.highlighted || false,
+          isCustom: pkg.price?.toLowerCase().includes("misura") || pkg.price?.toLowerCase().includes("custom"),
+          cta: pkg.name === "Start" ? "Inizia Ora" :
+            pkg.name === "Pro" ? "Più Scelto" :
+              pkg.name === "Enterprise" ? "Contattaci" : "Scegli Piano"
+        })) || [];
+
+        setPlans(mappedPlans);
+      } catch (err) {
+        console.error("Error fetching plans:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="prezzi" className="py-24 text-center">
+        <div className="animate-pulse text-muted-foreground">Caricamento prezzi...</div>
+      </section>
+    );
+  }
+
   return (
     <section id="prezzi" className="relative py-24 md:py-32 overflow-hidden bg-card/20">
       {/* Background */}
@@ -110,8 +80,8 @@ const PricingSection = () => {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-[95%] mx-auto">
-          {pricingPlans.map((plan) => (
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${plans.length > 3 ? 'xl:grid-cols-5' : ''} gap-6 max-w-[95%] mx-auto`}>
+          {plans.map((plan) => (
             <div
               key={plan.name}
               className={`relative glass-card p-8 flex flex-col hover-lift ${plan.popular ? "border-primary/50 scale-105 lg:scale-110" : ""
@@ -119,7 +89,7 @@ const PricingSection = () => {
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary to-accent rounded-full">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary to-accent rounded-full z-20">
                   <span className="text-xs font-semibold text-primary-foreground">
                     Consigliato
                   </span>
@@ -129,14 +99,18 @@ const PricingSection = () => {
               {/* Icon */}
               <div
                 className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${plan.popular
-                    ? "bg-gradient-to-br from-primary to-accent"
-                    : "bg-primary/20"
+                  ? "bg-gradient-to-br from-primary to-accent"
+                  : "bg-primary/20"
                   }`}
               >
-                <plan.icon
-                  className={`w-7 h-7 ${plan.popular ? "text-primary-foreground" : "text-primary"
-                    }`}
-                />
+                {typeof plan.icon === 'string' ? (
+                  <span className="text-2xl">{plan.icon}</span>
+                ) : (
+                  <plan.icon
+                    className={`w-7 h-7 ${plan.popular ? "text-primary-foreground" : "text-primary"
+                      }`}
+                  />
+                )}
               </div>
 
               {/* Plan Info */}
@@ -153,7 +127,7 @@ const PricingSection = () => {
                   </span>
                 ) : (
                   <div className="flex items-baseline gap-1">
-                    <span className="text-muted-foreground">€</span>
+                    {!plan.price?.includes("€") && <span className="text-muted-foreground">€</span>}
                     <span className="font-display text-4xl font-bold text-foreground">
                       {plan.price}
                     </span>
@@ -164,7 +138,7 @@ const PricingSection = () => {
 
               {/* Features */}
               <ul className="space-y-3 mb-8 flex-1">
-                {plan.features.map((feature, index) => (
+                {plan.features.map((feature: string, index: number) => (
                   <li key={index} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                     <span className="text-sm text-muted-foreground">{feature}</span>

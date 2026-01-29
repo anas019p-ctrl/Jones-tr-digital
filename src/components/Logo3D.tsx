@@ -1,84 +1,63 @@
-import { useState } from "react";
-import logo3D from "@/assets/logo-3d.png";
+import { Badge } from "@/components/ui/badge";
 
 const Logo3D = () => {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
-    <div 
-      className="relative w-12 h-12 perspective-1000"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Glow Effect */}
-      <div 
-        className={`absolute inset-0 rounded-xl bg-primary/30 blur-xl transition-all duration-500 ${
-          isHovered ? "opacity-100 scale-150" : "opacity-50 scale-100"
-        }`}
-      />
-      
-      {/* Logo Container with 3D Transform */}
-      <div 
-        className={`relative w-12 h-12 rounded-xl overflow-hidden transition-all duration-500 transform-gpu ${
-          isHovered 
-            ? "scale-110 rotate-y-12 shadow-2xl" 
-            : "scale-100"
-        }`}
-        style={{
-          transformStyle: "preserve-3d",
-          animation: isHovered ? "none" : "logoFloat 4s ease-in-out infinite",
-        }}
+    <div className="relative w-12 h-12 flex items-center justify-center animate-float">
+      <svg
+        viewBox="0 0 100 100"
+        className="w-full h-full drop-shadow-[0_0_15px_rgba(43,100,255,0.5)]"
+        style={{ filter: "drop-shadow(0 0 10px hsla(var(--primary)))" }}
       >
-        <img 
-          src={logo3D} 
-          alt="JONES TR DIGITAL Logo" 
-          className="w-full h-full object-cover"
+        <defs>
+          <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="hsl(var(--primary))" />
+            <stop offset="50%" stopColor="hsl(var(--accent))" />
+            <stop offset="100%" stopColor="hsl(var(--secondary))" />
+          </linearGradient>
+        </defs>
+
+        {/* 3D Cube effect background */}
+        <path
+          d="M50 5 L95 25 L95 75 L50 95 L5 75 L5 25 Z"
+          fill="none"
+          stroke="url(#logoGradient)"
+          strokeWidth="2"
+          className="opacity-50"
         />
-        
-        {/* Shine Effect */}
-        <div 
-          className={`absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent transition-opacity duration-500 ${
-            isHovered ? "opacity-100" : "opacity-0"
-          }`}
-          style={{
-            animation: isHovered ? "logoShine 1s ease-in-out" : "none",
-          }}
+
+        {/* Inner Logo Geometry */}
+        <path
+          d="M50 20 L80 35 L80 65 L50 80 L20 65 L20 35 Z"
+          fill="url(#logoGradient)"
+          className="opacity-90"
         />
-      </div>
-      
-      <style>{`
-        @keyframes logoFloat {
-          0%, 100% {
-            transform: translateY(0) rotateY(0deg);
-          }
-          25% {
-            transform: translateY(-3px) rotateY(5deg);
-          }
-          50% {
-            transform: translateY(0) rotateY(0deg);
-          }
-          75% {
-            transform: translateY(3px) rotateY(-5deg);
-          }
-        }
-        
-        @keyframes logoShine {
-          0% {
-            transform: translateX(-100%) rotate(45deg);
-          }
-          100% {
-            transform: translateX(100%) rotate(45deg);
-          }
-        }
-        
-        .perspective-1000 {
-          perspective: 1000px;
-        }
-        
-        .rotate-y-12 {
-          transform: rotateY(12deg) scale(1.1);
-        }
-      `}</style>
+
+        {/* Text Initials */}
+        <text
+          x="50"
+          y="62"
+          fontSize="35"
+          fontFamily="Arial, sans-serif"
+          fontWeight="bold"
+          fill="white"
+          textAnchor="middle"
+          style={{ textShadow: "0 2px 4px rgba(0,0,0,0.3)" }}
+        >
+          JT
+        </text>
+
+        {/* Glow Ring */}
+        <circle
+          cx="50"
+          cy="50"
+          r="45"
+          stroke="hsl(var(--primary))"
+          strokeWidth="1"
+          strokeDasharray="4 4"
+          fill="none"
+          className="animate-spin-slow opacity-30"
+        />
+      </svg>
     </div>
   );
 };

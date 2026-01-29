@@ -2,72 +2,13 @@ import { QrCode, Smartphone, ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const QRCodeSection = () => {
-  // QR Code SVG generato per il link del sito
-  const qrCodeSvg = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-      <rect width="256" height="256" fill="transparent"/>
-      <g fill="currentColor">
-        <!-- Position Detection Patterns -->
-        <rect x="16" y="16" width="64" height="64"/>
-        <rect x="24" y="24" width="48" height="48" fill="hsl(222 47% 7%)"/>
-        <rect x="32" y="32" width="32" height="32"/>
-        
-        <rect x="176" y="16" width="64" height="64"/>
-        <rect x="184" y="24" width="48" height="48" fill="hsl(222 47% 7%)"/>
-        <rect x="192" y="32" width="32" height="32"/>
-        
-        <rect x="16" y="176" width="64" height="64"/>
-        <rect x="24" y="184" width="48" height="48" fill="hsl(222 47% 7%)"/>
-        <rect x="32" y="192" width="32" height="32"/>
-        
-        <!-- Data modules - Stylized pattern -->
-        <rect x="96" y="16" width="16" height="16"/>
-        <rect x="128" y="16" width="16" height="16"/>
-        <rect x="96" y="32" width="16" height="16"/>
-        <rect x="144" y="32" width="16" height="16"/>
-        <rect x="112" y="48" width="16" height="16"/>
-        <rect x="128" y="48" width="16" height="16"/>
-        
-        <rect x="16" y="96" width="16" height="16"/>
-        <rect x="48" y="96" width="16" height="16"/>
-        <rect x="16" y="112" width="16" height="16"/>
-        <rect x="32" y="128" width="16" height="16"/>
-        <rect x="48" y="112" width="16" height="16"/>
-        <rect x="16" y="144" width="16" height="16"/>
-        <rect x="48" y="144" width="16" height="16"/>
-        
-        <!-- Center area -->
-        <rect x="96" y="96" width="64" height="64" rx="8"/>
-        <rect x="104" y="104" width="48" height="48" rx="4" fill="hsl(222 47% 7%)"/>
-        <rect x="112" y="112" width="32" height="32" rx="2"/>
-        
-        <!-- More data modules -->
-        <rect x="176" y="96" width="16" height="16"/>
-        <rect x="208" y="96" width="16" height="16"/>
-        <rect x="192" y="112" width="16" height="16"/>
-        <rect x="224" y="112" width="16" height="16"/>
-        <rect x="176" y="128" width="16" height="16"/>
-        <rect x="208" y="144" width="16" height="16"/>
-        <rect x="224" y="144" width="16" height="16"/>
-        
-        <rect x="96" y="176" width="16" height="16"/>
-        <rect x="128" y="176" width="16" height="16"/>
-        <rect x="112" y="192" width="16" height="16"/>
-        <rect x="144" y="192" width="16" height="16"/>
-        <rect x="96" y="208" width="16" height="16"/>
-        <rect x="128" y="208" width="16" height="16"/>
-        <rect x="144" y="224" width="16" height="16"/>
-        
-        <rect x="176" y="176" width="16" height="16"/>
-        <rect x="208" y="176" width="16" height="16"/>
-        <rect x="192" y="192" width="16" height="16"/>
-        <rect x="224" y="192" width="16" height="16"/>
-        <rect x="176" y="208" width="16" height="16"/>
-        <rect x="208" y="224" width="16" height="16"/>
-        <rect x="224" y="208" width="16" height="16"/>
-      </g>
-    </svg>
-  `;
+  // Functional QR Code SVG for JONES TR DIGITAL website
+  // This is a simplified but functional QR code pattern
+  // Real QR Code using API
+  const siteUrl = window.location.origin;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(
+    siteUrl
+  )}&bgcolor=1a1a1a&color=3b82f6`;
 
   return (
     <section className="relative py-24 md:py-32 overflow-hidden">
@@ -92,8 +33,8 @@ const QRCodeSection = () => {
             </h2>
 
             <p className="text-muted-foreground text-lg max-w-lg">
-              Usa il tuo smartphone per scansionare il QR code e accedere immediatamente 
-              al nostro sito. Salva i nostri contatti o condividi con chi ha bisogno 
+              Usa il tuo smartphone per scansionare il QR code e accedere immediatamente
+              al nostro sito. Salva i nostri contatti o condividi con chi ha bisogno
               di soluzioni digitali innovative.
             </p>
 
@@ -133,19 +74,20 @@ const QRCodeSection = () => {
               {/* Glow Effects */}
               <div className="absolute -inset-8 bg-primary/20 rounded-full blur-3xl animate-pulse" />
               <div className="absolute -inset-4 bg-accent/10 rounded-full blur-2xl" />
-              
+
               {/* QR Code Container */}
               <div className="relative glass-card p-8 md:p-12 hover-lift">
                 {/* Scan Animation */}
                 <div className="absolute inset-0 overflow-hidden rounded-2xl">
                   <div className="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-scan" />
                 </div>
-                
-                <div 
-                  className="w-48 h-48 md:w-64 md:h-64 text-primary"
-                  dangerouslySetInnerHTML={{ __html: qrCodeSvg }}
+
+                <img
+                  src={qrCodeUrl}
+                  alt="QR Code Sito Web"
+                  className="w-48 h-48 md:w-64 md:h-64 object-contain rounded-lg"
                 />
-                
+
                 {/* Label */}
                 <div className="mt-6 text-center">
                   <p className="font-display font-bold text-foreground text-lg">JONES TR DIGITAL</p>
@@ -164,26 +106,26 @@ const QRCodeSection = () => {
       </div>
 
       <style>{`
-        @keyframes scan {
-          0%, 100% {
-            top: 0;
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-          }
-          90% {
-            opacity: 1;
-          }
-          100% {
-            top: 100%;
-            opacity: 0;
-          }
-        }
-        .animate-scan {
-          animation: scan 3s ease-in-out infinite;
-        }
-      `}</style>
+  @keyframes scan {
+    0 %, 100 % {
+      top: 0;
+      opacity: 0;
+    }
+    10 % {
+      opacity: 1;
+    }
+    90 % {
+      opacity: 1;
+    }
+    100 % {
+      top: 100 %;
+      opacity: 0;
+    }
+  }
+        .animate - scan {
+  animation: scan 3s ease -in -out infinite;
+}
+`}</style>
     </section>
   );
 };

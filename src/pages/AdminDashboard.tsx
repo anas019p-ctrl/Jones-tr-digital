@@ -1,120 +1,164 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { LogOut, Users, MessageSquare, LayoutDashboard, Loader2 } from "lucide-react";
-import { toast } from "sonner";
+import { useEffect, useState } from 'react';
+import { useAdminStore } from '@/store/adminStore';
+import AdminLayout from '@/components/admin/AdminLayout';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { DollarSign, Users, ShoppingCart, TrendingUp } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
+import { supabase } from '@/integrations/supabase/client';
 
-const AdminDashboard = () => {
-    const [session, setSession] = useState<any>(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const navigate = useNavigate();
+export default function AdminDashboard() {
+    const theme = useAdminStore((state) => state.theme);
+    // Mock data for now, replaced with real data later
+    const [stats, setStats] = useState({
+        totalRevenue: 24500,
+        totalOrders: 42,
+        totalCustomers: 156,
+        conversionRate: 3.2
+    });
+
+    const [recentOrders, setRecentOrders] = useState<any[]>([]);
+
+    // Dati per chart (ultimi 7 giorni)
+    const chartData = [
+        { day: 'Lun', revenue: 1200, orders: 4 },
+        { day: 'Mar', revenue: 1900, orders: 6 },
+        { day: 'Mer', revenue: 1500, orders: 5 },
+        { day: 'Gio', revenue: 2200, orders: 7 },
+        { day: 'Ven', revenue: 2800, orders: 9 },
+        { day: 'Sab', revenue: 2290, orders: 8 },
+        { day: 'Dom', revenue: 2000, orders: 6 },
+    ];
 
     useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            if (!session) {
-                navigate("/login");
-            } else {
-                setSession(session);
-            }
-            setIsLoading(false);
-        });
-    }, [navigate]);
-
-    const handleLogout = async () => {
-        await supabase.auth.signOut();
-        toast.success("Logged out");
-        navigate("/login");
-    };
-
-    if (isLoading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-background">
-                <Loader2 className="w-12 h-12 text-primary animate-spin" />
-            </div>
-        );
-    }
+        // Fetch real data logic here in the future
+        const fetchDashboardData = async () => {
+            // Placeholder for real DB calls
+            // const { data: orders } = await supabase.from('orders').select('*');
+        };
+        fetchDashboardData();
+    }, []);
 
     return (
-        <div className="min-h-screen bg-background flex flex-col md:flex-row">
-            {/* Sidebar */}
-            <aside className="w-64 bg-card/50 border-r border-border p-6 hidden md:block">
-                <div className="mb-10">
-                    <h2 className="font-display font-bold text-xl gradient-text">JONES TR</h2>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Admin Control</p>
+        <AdminLayout title="Bacheca">
+            <div className="space-y-8">
+
+                {/* Welcome Section */}
+                <div className="flex flex-col gap-2">
+                    <h2 className="text-3xl font-display font-bold text-foreground">
+                        Bentornato, Amministratore 👋
+                    </h2>
+                    <p className="text-muted-foreground">
+                        Ecco una panoramica completa delle prestazioni del tuo sito e del tuo business.
+                    </p>
                 </div>
 
-                <nav className="space-y-2">
-                    <Button variant="ghost" className="w-full justify-start gap-2 bg-primary/10 text-primary">
-                        <LayoutDashboard className="w-4 h-4" /> Dashboard
-                    </Button>
-                    <Button variant="ghost" className="w-full justify-start gap-2">
-                        <MessageSquare className="w-4 h-4" /> Richieste
-                    </Button>
-                    <Button variant="ghost" className="w-full justify-start gap-2">
-                        <Users className="w-4 h-4" /> Clienti
-                    </Button>
-                </nav>
-
-                <div className="mt-auto pt-10">
-                    <Button variant="outline" className="w-full gap-2 text-destructive border-destructive/20 hover:bg-destructive/10" onClick={handleLogout}>
-                        <LogOut className="w-4 h-4" /> Logout
-                    </Button>
+                {/* Stats Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <StatCard
+                        icon={DollarSign}
+                        label="Fatturato Totale"
+                        value={`€${stats.totalRevenue.toLocaleString()}`}
+                        change="+12.5%"
+                        trend="up"
+                    />
+                    <StatCard
+                        icon={ShoppingCart}
+                        label="Ordini Totali"
+                        value={stats.totalOrders}
+                        change="+8 questa settimana"
+                        trend="up"
+                    />
+                    <StatCard
+                        icon={Users}
+                        label="Clienti Totali"
+                        value={stats.totalCustomers}
+                        change="+5 nuovi"
+                        trend="up"
+                    />
+                    <StatCard
+                        icon={TrendingUp}
+                        label="Tasso di Conversione"
+                        value={`${stats.conversionRate}%`}
+                        change="+0.4%"
+                        trend="up"
+                    />
                 </div>
-            </aside>
 
-            {/* Main Content */}
-            <main className="flex-1 p-8">
-                <header className="flex justify-between items-center mb-10">
-                    <h1 className="text-3xl font-bold font-display">Bentornato, Admin</h1>
-                    <div className="flex items-center gap-4">
-                        <div className="text-right">
-                            <p className="text-sm font-medium">{session?.user?.email}</p>
-                            <p className="text-xs text-muted-foreground">Super Admin</p>
+                {/* Charts Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* Revenue Chart */}
+                    <Card className="p-6 glass-card border-border/50">
+                        <h3 className="text-lg font-bold mb-6 text-foreground">Andamento Fatturato</h3>
+                        <div className="h-[300px] w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <LineChart data={chartData}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+                                    <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(value) => `€${value}`} />
+                                    <Tooltip
+                                        contentStyle={{ borderRadius: '12px', border: 'none', backgroundColor: 'hsl(var(--card))', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                                        itemStyle={{ color: 'hsl(var(--foreground))' }}
+                                    />
+                                    <Line
+                                        type="monotone"
+                                        dataKey="revenue"
+                                        stroke="hsl(var(--primary))"
+                                        strokeWidth={3}
+                                        dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2 }}
+                                        activeDot={{ r: 8 }}
+                                    />
+                                </LineChart>
+                            </ResponsiveContainer>
                         </div>
-                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/30">
-                            <Users className="w-5 h-5 text-primary" />
+                    </Card>
+
+                    {/* Orders Chart */}
+                    <Card className="p-6 glass-card border-border/50">
+                        <h3 className="text-lg font-bold mb-6 text-foreground">Ordini Settimanali</h3>
+                        <div className="h-[300px] w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={chartData}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+                                    <XAxis dataKey="day" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                                    <Tooltip
+                                        cursor={{ fill: 'hsl(var(--muted)/0.2)' }}
+                                        contentStyle={{ borderRadius: '12px', border: 'none', backgroundColor: 'hsl(var(--card))', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}
+                                        itemStyle={{ color: 'hsl(var(--foreground))' }}
+                                    />
+                                    <Bar dataKey="orders" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
+                                </BarChart>
+                            </ResponsiveContainer>
                         </div>
-                    </div>
-                </header>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                    <div className="glass-card p-6">
-                        <p className="text-sm text-muted-foreground mb-1">Totale Richieste</p>
-                        <h3 className="text-4xl font-bold font-display">24</h3>
-                    </div>
-                    <div className="glass-card p-6">
-                        <p className="text-sm text-muted-foreground mb-1">Nuovi Messaggi</p>
-                        <h3 className="text-4xl font-bold font-display text-primary">12</h3>
-                    </div>
-                    <div className="glass-card p-6">
-                        <p className="text-sm text-muted-foreground mb-1">Tasso Conversione</p>
-                        <h3 className="text-4xl font-bold font-display text-accent">18%</h3>
-                    </div>
+                    </Card>
                 </div>
-
-                <div className="glass-card p-8">
-                    <h3 className="text-xl font-bold font-display mb-6">Attività Recenti</h3>
-                    <div className="space-y-4">
-                        {[1, 2, 3].map((i) => (
-                            <div key={i} className="flex items-center justify-between p-4 bg-background/50 rounded-xl border border-border/50">
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                                        <MessageSquare className="w-5 h-5 text-accent" />
-                                    </div>
-                                    <div>
-                                        <p className="font-medium">Nuova richiesta da Rossi Web S.r.l.</p>
-                                        <p className="text-xs text-muted-foreground">Piano Pro • 2 ore fa</p>
-                                    </div>
-                                </div>
-                                <Button variant="link" className="text-primary hover:text-primary/80">Dettagli</Button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </main>
-        </div>
+            </div>
+        </AdminLayout>
     );
-};
+}
 
-export default AdminDashboard;
+function StatCard({ icon: Icon, label, value, change, trend }: any) {
+    return (
+        <Card className="p-6 glass-card border-border/50 hover-lift">
+            <div className="flex justify-between items-start mb-4">
+                <div>
+                    <p className="text-sm font-medium text-muted-foreground">{label}</p>
+                    <h4 className="text-2xl font-bold text-foreground mt-1">{value}</h4>
+                </div>
+                <div className="p-3 bg-primary/10 rounded-xl text-primary">
+                    <Icon size={20} />
+                </div>
+            </div>
+            <div className="flex items-center gap-1 text-sm">
+                <span className={cn(
+                    "font-medium",
+                    trend === 'up' ? "text-green-500" : "text-red-500"
+                )}>
+                    {change}
+                </span>
+                <span className="text-muted-foreground">vs mese scorso</span>
+            </div>
+        </Card>
+    );
+}

@@ -66,6 +66,45 @@ serve(async (req) => {
 
     console.log("Contact request saved:", data.id);
 
+    // --- RESEND INTEGRATION ---
+    const RESEND_API_KEY = "re_53W2nTWp_M1kavLNHFh8BwUdKg58tDinJ";
+    const ADMIN_EMAIL = "Jonestrdigital@gmail.com";
+
+    try {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: "JONES TR <onboarding@resend.dev>",
+          to: [ADMIN_EMAIL],
+          subject: `Nuova richiesta di contatto da ${name}`,
+          html: `
+            <h1>Nuova Richiesta di Contatto</h1>
+            <p><strong>Nome:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Telefono:</strong> ${phone || 'N/A'}</p>
+            <p><strong>Azienda:</strong> ${company || 'N/A'}</p>
+            <p><strong>Interesse:</strong> ${service_interest || 'N/A'}</p>
+            <p><strong>Messaggio:</strong></p>
+            <p>${message}</p>
+          `,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error("Resend error:", errorData);
+      } else {
+        console.log("Notification email sent successfully");
+      }
+    } catch (emailError) {
+      console.error("Failed to send notification email:", emailError);
+    }
+    // ---------------------------
+
     return new Response(
       JSON.stringify({ success: true, message: "Richiesta inviata con successo!" }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }

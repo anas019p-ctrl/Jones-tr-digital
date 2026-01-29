@@ -1,98 +1,117 @@
-import ServiceCard from "./ServiceCard";
-import {
-  Globe,
-  Database,
-  Bot,
-  Workflow,
-  FileCode,
-  Monitor,
-  Megaphone
-} from "lucide-react";
-import serviceWebdesign from "@/assets/service-webdesign.jpg";
-import serviceDatabase from "@/assets/service-database.jpg";
-import serviceAi from "@/assets/service-ai.jpg";
-import serviceAutomation from "@/assets/service-automation.jpg";
-import serviceApps from "@/assets/service-apps.jpg";
-import servicesBg from "@/assets/futuristic_services.png";
+import { Check, Crown } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const services = [
   {
-    icon: Globe,
-    title: "Sito Web Professionale",
-    description: "Un sito bello e facile da usare che i tuoi clienti ameranno. Funziona perfettamente su telefono e computer.",
-    image: serviceWebdesign,
+    id: 1,
+    name: 'Start',
+    price: '€590',
+    icon: '🚀',
+    description: 'Perfetto per: Freelancer, Negozi Fisici, Studi Professionali',
+    features: ['Sito One-Page Responsive', 'Design Moderno', 'SEO Base', 'Modulo Contatti'],
+    bestSeller: false
   },
   {
-    icon: Database,
-    title: "Gestione Dati Semplice",
-    description: "Organizziamo i tuoi dati in modo sicuro. Clienti, ordini, appuntamenti: tutto in ordine e sempre accessibile.",
-    image: serviceDatabase,
+    id: 2,
+    name: 'Standard',
+    price: '€1.290',
+    icon: '⭐',
+    description: 'Ideale per: PMI, Agenzie, Consulenti',
+    features: ['Sito Multi-Pagina', 'Design Personalizzato', 'SEO Avanzato', 'Blog + Analytics'],
+    bestSeller: false
   },
   {
-    icon: Bot,
-    title: "Assistente AI 24/7",
-    description: "Un chatbot intelligente che risponde ai tuoi clienti anche quando dormi. Risparmia tempo prezioso.",
-    image: serviceAi,
+    id: 3,
+    name: 'Pro',
+    price: '€2.890',
+    icon: '👑',
+    description: 'La soluzione completa: Aziende in Crescita',
+    features: ['CMS Completo', 'Automazioni Avanzate', 'AI Chatbot', 'Dashboard Analytics'],
+    bestSeller: true
   },
   {
-    icon: Workflow,
-    title: "Automazione Completa",
-    description: "Automatizziamo le attività ripetitive: email, fatture, promemoria. Tu lavori, il sistema fa il resto.",
-    image: serviceAutomation,
-  },
-  {
-    icon: Megaphone,
-    title: "Marketing Digitale",
-    description: "Campagne pubblicitarie su Facebook, Instagram e Google. Trova nuovi clienti ogni giorno.",
-  },
-  {
-    icon: Monitor,
-    title: "App Su Misura",
-    description: "Applicazioni personalizzate per gestire il tuo business. Semplici da usare, potenti nei risultati.",
-    image: serviceApps,
+    id: 4,
+    name: 'E-commerce',
+    price: '€4.500',
+    icon: '🛍️',
+    description: 'Per: Venditori Online, Dropshipping',
+    features: ['Negozio Online Completo', 'Gestione Prodotti', 'Pagamenti Sicuri', 'Spedizioni Automatiche'],
+    bestSeller: false
   },
 ];
 
-const ServicesSection = () => {
+export default function ServicesSection() {
   return (
-    <section id="servizi" className="relative py-24 md:py-32 overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-5 pointer-events-none"
-        style={{ backgroundImage: `url(${servicesBg})` }}
-      />
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
-            <span className="text-sm font-medium text-primary">Cosa Facciamo</span>
-          </div>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-6">
-            Soluzioni Digitali
-            <span className="gradient-text"> Semplici</span>
+    <section id="servizi" className="py-24 bg-white relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: 'radial-gradient(#1a365d 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-20">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1a365d]">
+            I Nostri Servizi
           </h2>
-          <p className="text-muted-foreground text-lg">
-            Non serve essere esperti di tecnologia. Ti spieghiamo tutto in modo chiaro
-            e creiamo gli strumenti giusti per far crescere la tua attività.
+          <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+            Scegli il piano più adatto alla tua attività e inizia a scalare oggi stesso.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <ServiceCard
-              key={service.title}
-              icon={service.icon}
-              title={service.title}
-              description={service.description}
-              image={service.image}
-              delay={index * 100}
-            />
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service) => (
+            <motion.div
+              key={service.id}
+              whileHover={{ y: -8 }}
+              className={`relative p-8 rounded-2xl border transition-all duration-300 h-full flex flex-col ${service.bestSeller
+                ? 'border-yellow-400 bg-white shadow-2xl shadow-yellow-200/50 scale-[1.02]'
+                : 'border-gray-100 bg-white hover:border-blue-200 hover:shadow-xl'
+                }`}
+            >
+              {/* Badge Best Seller */}
+              {service.bestSeller && (
+                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                  <span className="bg-yellow-400 text-blue-900 px-5 py-1.5 
+                                 rounded-full text-xs font-black flex items-center gap-1.5 uppercase tracking-wider">
+                    <Crown size={14} /> Best Seller
+                  </span>
+                </div>
+              )}
+
+              {/* Icona */}
+              <div className="text-4xl mb-6 bg-gray-50 w-16 h-16 rounded-2xl flex items-center justify-center">
+                {service.icon}
+              </div>
+
+              {/* Nome e Prezzo */}
+              <h3 className="text-2xl font-bold mb-2 text-[#1a365d]">{service.name}</h3>
+              <div className="flex items-baseline gap-1 mb-4">
+                <span className="text-3xl font-bold text-blue-600">{service.price}</span>
+              </div>
+              <p className="text-gray-500 text-sm mb-8 leading-relaxed flex-grow">
+                {service.description}
+              </p>
+
+              {/* Features */}
+              <ul className="space-y-4 mb-10">
+                {service.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <Check size={18} className="text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-gray-600 font-medium">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA Button */}
+              <button className={`w-full py-4 rounded-xl font-bold transition-all duration-300 ${service.bestSeller
+                ? 'bg-yellow-400 text-blue-900 hover:bg-yellow-500 shadow-lg shadow-yellow-200'
+                : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-100'
+                }`}>
+                {service.bestSeller ? 'Inizia Ora - Best Seller' : 'Scopri di Più'}
+              </button>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
-};
-
-export default ServicesSection;
+}

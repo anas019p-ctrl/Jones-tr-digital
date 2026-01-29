@@ -1,48 +1,59 @@
+import { useState, useEffect } from "react";
 import AdditionalServiceCard from "./AdditionalServiceCard";
-import { 
-  RefreshCw, 
-  Headphones, 
-  Layout, 
-  Workflow, 
-  Languages, 
+import { supabase } from "@/integrations/supabase/client";
+import {
+  RefreshCw,
+  Headphones,
+  Layout,
+  Workflow,
   Megaphone,
-  Video 
+  Video,
+  Wrench
 } from "lucide-react";
 
-const additionalServices = [
-  {
-    icon: RefreshCw,
-    title: "Manutenzione Mensile",
-    description: "Ci occupiamo noi di tutto: aggiornamenti, backup e sicurezza. Tu concentrati sul tuo business.",
-  },
-  {
-    icon: Headphones,
-    title: "Assistenza Dedicata",
-    description: "Hai un problema? Ti rispondiamo subito. Supporto tecnico veloce e in italiano.",
-  },
-  {
-    icon: Layout,
-    title: "Template Pronti all'Uso",
-    description: "Siti web già pronti da personalizzare. Lanci il tuo business online in pochi giorni.",
-  },
-  {
-    icon: Workflow,
-    title: "Automazione Business",
-    description: "Automatizziamo i tuoi processi: fatture, email, appuntamenti. Risparmi tempo e soldi.",
-  },
-  {
-    icon: Megaphone,
-    title: "Pubblicità Social",
-    description: "Campagne Facebook, Instagram, Google. Raggiungi i tuoi clienti dove passano il tempo.",
-  },
-  {
-    icon: Video,
-    title: "Contenuti & Branding",
-    description: "Logo, video, post social. Tutto il materiale per far conoscere la tua attività.",
-  },
-];
+const iconMap: Record<string, any> = {
+  "Manutenzione": RefreshCw,
+  "Assistenza": Headphones,
+  "Template": Layout,
+  "Automazione": Workflow,
+  "Pubblicità": Megaphone,
+  "Contenuti": Video
+};
 
 const AdditionalServicesSection = () => {
+  const [services, setServices] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("services")
+          .select("*")
+          .order("order_index", { ascending: true });
+
+        if (error) throw error;
+
+        // Map database records to UI structure
+        const mappedServices = data?.filter(s => !s.highlighted).map(s => ({
+          icon: iconMap[s.name.split(' ')[0]] || Wrench,
+          title: s.name,
+          description: s.features?.join(". ") || "Servizio professionale personalizzato."
+        })) || [];
+
+        setServices(mappedServices);
+      } catch (err) {
+        console.error("Error fetching services:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchServices();
+  }, []);
+
+  if (loading || services.length === 0) return null;
+
   return (
     <section className="relative py-24 md:py-32 bg-card/20">
       <div className="container mx-auto px-6">
@@ -56,14 +67,14 @@ const AdditionalServicesSection = () => {
             <span className="gradient-text-accent"> Business</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Non devi essere un esperto di tecnologia. Pensiamo a tutto noi, 
+            Non devi essere un esperto di tecnologia. Pensiamo a tutto noi,
             tu pensa ai tuoi clienti.
           </p>
         </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {additionalServices.map((service) => (
+          {services.map((service) => (
             <AdditionalServiceCard
               key={service.title}
               icon={service.icon}
