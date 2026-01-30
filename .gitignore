@@ -24,3 +24,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary Build/Debug Files
+build_error*.txt
+build_v*.txt
+response*.html
+temp_build_output.txt
+.gemini/
+brain/

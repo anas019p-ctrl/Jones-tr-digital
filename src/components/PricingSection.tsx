@@ -89,10 +89,12 @@ const PricingSection = () => {
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-primary to-accent rounded-full z-20">
-                  <span className="text-xs font-semibold text-primary-foreground">
-                    Consigliato
-                  </span>
+                <div className="absolute -top-4 left-0 right-0 flex justify-center z-20">
+                  <div className="px-5 py-1.5 bg-gradient-to-r from-cyber-cyan to-cyber-purple rounded-full shadow-[0_0_20px_rgba(0,242,255,0.4)] border border-white/20">
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-black text-white">
+                      Consigliato
+                    </span>
+                  </div>
                 </div>
               )}
 

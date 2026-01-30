@@ -7,7 +7,6 @@ import {
 import { Link } from 'react-router-dom';
 import GDPRBanner from "@/components/GDPRBanner";
 import AboutSection from "@/components/AboutSection";
-import ServicesSection from "@/components/ServicesSection";
 import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
@@ -157,7 +156,6 @@ const Index = () => {
         </section>
 
         <AboutSection />
-        <ServicesSection />
         <PricingSection />
         <TestimonialsSection />
         <FAQSection />
