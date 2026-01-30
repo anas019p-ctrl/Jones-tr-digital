@@ -11,6 +11,8 @@ import HowItWorks from "./pages/HowItWorks";
 import FAQ from "./pages/FAQ";
 import Testimonials from "./pages/Testimonials";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
+import Cookie from "./pages/Cookie";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminPackages from "./pages/AdminPackages";
@@ -58,6 +60,9 @@ const App = () => (
                 <Route path="/admin/blog" element={<AdminBlog />} />
                 <Route path="/admin/services" element={<AdminServices />} />
                 <Route path="/admin/contacts" element={<AdminContacts />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/cookie" element={<Cookie />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
             <Footer />
