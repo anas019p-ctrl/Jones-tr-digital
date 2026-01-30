@@ -57,7 +57,8 @@ const PricingSection = () => {
   }
 
   return (
-    <section id="prezzi" className="relative py-24 md:py-32 overflow-hidden bg-card/20">
+    <section id="servizi" className="relative py-24 md:py-32 overflow-hidden bg-card/20 pb-0">
+      <div id="prezzi" className="absolute top-0" />
       {/* Background */}
       <div className="absolute inset-0 cyber-grid opacity-20" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl" />
