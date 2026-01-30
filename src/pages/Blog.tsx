@@ -3,8 +3,13 @@ import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { Calendar, User, ArrowRight, Tag } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const Blog = () => {
+    useEffect(() => {
+        document.title = "Intelligence Feed | JONES TR Digital Blog";
+    }, []);
+
     const { data: posts, isLoading } = useQuery({
         queryKey: ["blog_posts"],
         queryFn: async () => {
@@ -12,7 +17,7 @@ const Blog = () => {
                 .from("blog_posts")
                 .select("*")
                 .eq("is_published", true)
-                .order("published_at", { ascending: false });
+                .order("created_at", { ascending: false });
             if (error) throw error;
             return data;
         },

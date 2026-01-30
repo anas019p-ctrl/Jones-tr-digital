@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { Calendar, User, ArrowLeft, Tag, Share2, Clock } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import { useEffect } from "react";
 
 const BlogPost = () => {
     const { slug } = useParams();
@@ -19,6 +21,15 @@ const BlogPost = () => {
             return data;
         },
     });
+
+    useEffect(() => {
+        if (post) {
+            document.title = `${post.title} | JONES TR Digital Blog`;
+            // Update meta description
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', post.excerpt || '');
+        }
+    }, [post]);
 
     if (isLoading) {
         return (
@@ -49,7 +60,7 @@ const BlogPost = () => {
                     <div className="flex flex-wrap items-center gap-6 text-[10px] font-mono text-white/40 uppercase tracking-[0.2em]">
                         <span className="flex items-center gap-1.5">
                             <Calendar size={14} className="text-cyber-cyan" />
-                            {new Date(post.published_at!).toLocaleDateString('it-IT')}
+                            {new Date(post.created_at).toLocaleDateString('it-IT')}
                         </span>
                         <span className="flex items-center gap-1.5">
                             <User size={14} className="text-cyber-purple" />
@@ -57,7 +68,7 @@ const BlogPost = () => {
                         </span>
                         <span className="flex items-center gap-1.5">
                             <Clock size={14} className="text-yellow-400" />
-                            5 Min Lettura
+                            {Math.ceil(post.content.split(' ').length / 200)} Min Lettura
                         </span>
                         <span className="flex items-center gap-1.5">
                             <Tag size={12} className="text-cyber-cyan" />
@@ -82,17 +93,17 @@ const BlogPost = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="glass-card p-8 md:p-12 relative">
+                    <div className="glass-card p-8 md:p-12 relative overflow-visible">
                         {/* HUD decorative elements */}
                         <div className="absolute top-0 left-10 w-20 h-1 bg-gradient-to-r from-cyber-cyan to-transparent" />
                         <div className="absolute top-10 left-0 w-1 h-20 bg-gradient-to-b from-cyber-cyan to-transparent" />
 
                         <div className="prose prose-invert prose-cyan max-w-none 
                             prose-headings:font-display prose-headings:gradient-text
-                            text-white/80 leading-relaxed text-lg">
-                            {post.content.split('\n').map((paragraph, i) => (
-                                <p key={i} className="mb-6">{paragraph}</p>
-                            ))}
+                            prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
+                            prose-p:text-white/80 prose-p:leading-relaxed prose-p:text-lg prose-p:mb-6
+                            prose-li:text-white/80 prose-strong:text-cyber-cyan">
+                            <ReactMarkdown>{post.content}</ReactMarkdown>
                         </div>
 
                         {/* Footer Actions */}
