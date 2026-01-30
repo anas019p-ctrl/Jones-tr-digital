@@ -26,43 +26,47 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ChatAssistant from "./components/ChatAssistant";
 
+import { ThemeProvider } from "next-themes";
+
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <GlobalBackground />
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <div className="flex flex-col min-h-screen">
-          <Navbar />
-          <main className="flex-grow">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/come-funziona" element={<HowItWorks />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/testimonianze" element={<Testimonials />} />
-              <Route path="/login" element={<AdminLogin />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/packages" element={<AdminPackages />} />
-              <Route path="/admin/prices" element={<AdminPrices />} />
-              <Route path="/admin/orders" element={<AdminOrders />} />
-              <Route path="/admin/customers" element={<AdminCustomers />} />
-              <Route path="/admin/errors" element={<AdminErrors />} />
-              <Route path="/admin/settings" element={<AdminSettings />} />
-              <Route path="/admin/blog" element={<AdminBlog />} />
-              <Route path="/admin/services" element={<AdminServices />} />
-              <Route path="/admin/contacts" element={<AdminContacts />} />
-            </Routes>
-          </main>
-          <Footer />
-        </div>
-        <SpeedInsights />
-        <ChatAssistant />
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+      <TooltipProvider>
+        <GlobalBackground />
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/portfolio" element={<Portfolio />} />
+                <Route path="/come-funziona" element={<HowItWorks />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/testimonianze" element={<Testimonials />} />
+                <Route path="/login" element={<AdminLogin />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin/packages" element={<AdminPackages />} />
+                <Route path="/admin/prices" element={<AdminPrices />} />
+                <Route path="/admin/orders" element={<AdminOrders />} />
+                <Route path="/admin/customers" element={<AdminCustomers />} />
+                <Route path="/admin/errors" element={<AdminErrors />} />
+                <Route path="/admin/settings" element={<AdminSettings />} />
+                <Route path="/admin/blog" element={<AdminBlog />} />
+                <Route path="/admin/services" element={<AdminServices />} />
+                <Route path="/admin/contacts" element={<AdminContacts />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+          <ChatAssistant />
+          <SpeedInsights />
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

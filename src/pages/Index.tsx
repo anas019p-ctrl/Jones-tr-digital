@@ -4,7 +4,14 @@ import {
   Users, TrendingUp, Award, Clock, Zap, Shield,
   ArrowRight, Quote, Sparkles
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import GDPRBanner from "@/components/GDPRBanner";
+import AboutSection from "@/components/AboutSection";
+import ServicesSection from "@/components/ServicesSection";
+import PricingSection from "@/components/PricingSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
+import FAQSection from "@/components/FAQSection";
+import CTASection from "@/components/CTASection";
 
 const AnimatedHUD = () => {
   return (
@@ -50,16 +57,16 @@ const Index = () => {
   ]
 
   return (
-    <div className="bg-void text-white relative min-h-screen overflow-hidden">
+    <div className="text-foreground relative min-h-screen overflow-hidden">
       <AnimatedHUD />
 
       <main className="relative z-10">
         {/* Hero Section */}
-        <section className="container mx-auto px-6 pt-32 pb-20 text-center">
+        <section className="container mx-auto px-6 pt-32 pb-20 text-center flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex justify-center mb-8"
+            className="mb-8"
           >
             <span className="badge-cyber">
               <span className="w-2 h-2 bg-cyber-cyan rounded-full inline-block mr-2 animate-pulse" />
@@ -71,7 +78,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-bold mb-8 leading-[1.1] tracking-tight"
+            className="text-5xl md:text-7xl font-bold mb-8 leading-[1.1] tracking-tight max-w-4xl"
           >
             Il Tuo Business <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-blue-400">
@@ -84,7 +91,7 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-white/60 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed"
+            className="text-foreground/60 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed"
           >
             Non serve essere esperti di tecnologia. Creiamo il tuo sito web, <br className="hidden md:block" />
             automatizziamo le tue attività e ti aiutiamo a trovare nuovi clienti online.
@@ -94,15 +101,15 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="flex flex-col md:flex-row items-center justify-center gap-6 mb-16"
+            className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 mb-16 max-w-3xl"
           >
-            <div className="flex items-center gap-2 text-sm text-white/50">
+            <div className="flex items-center gap-2 text-sm text-foreground/50">
               <span className="text-cyber-cyan">✓</span> Nessuna competenza tecnica richiesta
             </div>
-            <div className="flex items-center gap-2 text-sm text-white/50">
+            <div className="flex items-center gap-2 text-sm text-foreground/50">
               <span className="text-cyber-cyan">✓</span> Prezzi chiari e onesti
             </div>
-            <div className="flex items-center gap-2 text-sm text-white/50">
+            <div className="flex items-center gap-2 text-sm text-foreground/50">
               <span className="text-cyber-cyan">✓</span> Assistenza in italiano
             </div>
           </motion.div>
@@ -111,18 +118,21 @@ const Index = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col sm:flex-row items-center justify-center gap-6"
           >
-            <button className="btn-gradient w-full sm:w-auto">
+            <button className="btn-gradient px-8 py-4 rounded-xl flex items-center gap-2 text-white font-bold group transition-all duration-300">
               Parliamo del Tuo Progetto
-              <ArrowRight size={20} />
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="btn-ghost-cyber w-full sm:w-auto">
-              <span className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center mr-2">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-              </span>
-              Come Funziona
-            </button>
+
+            <Link to="/come-funziona" className="btn-play-cyber group">
+              <div className="play-icon-container">
+                <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="ml-1 text-cyber-cyan fill-current">
+                  <path d="M1 1L11 7L1 13V1Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <span className="font-medium">Come Funziona</span>
+            </Link>
           </motion.div>
         </section>
 
@@ -138,13 +148,20 @@ const Index = () => {
                 className="text-center group"
               >
                 <div className="text-4xl md:text-5xl font-bold mb-2 group-hover:text-cyber-cyan transition-colors">{stat.value}</div>
-                <div className="text-white/40 text-[11px] uppercase tracking-[0.3em] font-mono">
+                <div className="text-foreground/40 text-[11px] uppercase tracking-[0.3em] font-mono">
                   {stat.label}
                 </div>
               </motion.div>
             ))}
           </div>
         </section>
+
+        <AboutSection />
+        <ServicesSection />
+        <PricingSection />
+        <TestimonialsSection />
+        <FAQSection />
+        <CTASection />
       </main>
 
       <GDPRBanner />

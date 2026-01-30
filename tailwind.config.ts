@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
@@ -120,6 +121,18 @@ export default {
           "50%": { backgroundPosition: "100% 50%" },
           "100%": { backgroundPosition: "0% 50%" },
         },
+        "spin-slow": {
+          from: { transform: "translate(-50%, -50%) rotate(0deg)" },
+          to: { transform: "translate(-50%, -50%) rotate(360deg)" }
+        },
+        "reverse-spin": {
+          from: { transform: "translate(-50%, -50%) rotate(360deg)" },
+          to: { transform: "translate(-50%, -50%) rotate(0deg)" }
+        },
+        "scanLine": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100vh)" }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -131,6 +144,9 @@ export default {
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
         "gradient-shift": "gradient-shift 8s ease infinite",
+        "spin-slow": "spin-slow 20s linear infinite",
+        "reverse-spin": "reverse-spin 30s linear infinite",
+        "scanLine": "scanLine 12s linear infinite",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -139,5 +155,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [animate],
 } satisfies Config;

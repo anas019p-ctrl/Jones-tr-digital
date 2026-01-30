@@ -1,6 +1,6 @@
 import { Target, Lightbulb, Users, Rocket, Shield, Heart, Cpu, Code, Cog } from "lucide-react";
 import { motion } from "framer-motion";
-import logo3D from "@/assets/logo-3d.png";
+// import logo3D from "@/assets/logo-3d.png";
 import aboutTech from "@/assets/about-tech.png";
 
 const values = [
