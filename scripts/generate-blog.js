@@ -1,6 +1,6 @@
 /**
  * AI BLOG GENERATOR - PROFESSIONAL VERSION
- * Generates rich, professional blog posts with images and varied topics
+ * Generates rich, detailed blog posts with varied topics and professional images
  */
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -32,37 +32,37 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
 const TOPICS = [
     {
         theme: "Automazione Aziendale con AI",
-        focus: "Come le aziende italiane stanno automatizzando processi ripetitivi con l'intelligenza artificiale",
-        keywords: ["automazione", "efficienza", "risparmio tempo", "ROI"]
+        focus: "Come le aziende italiane stanno automatizzando processi ripetitivi con l'intelligenza artificiale per risparmiare tempo e denaro",
+        keywords: ["automazione", "efficienza", "risparmio tempo", "ROI", "produttività"]
     },
     {
         theme: "Sicurezza e AI",
-        focus: "Come l'intelligenza artificiale sta rivoluzionando la cybersecurity e protezione dati",
-        keywords: ["sicurezza", "cybersecurity", "protezione dati", "minacce"]
+        focus: "Come l'intelligenza artificiale sta rivoluzionando la cybersecurity e la protezione dei dati aziendali",
+        keywords: ["sicurezza", "cybersecurity", "protezione dati", "minacce", "privacy"]
     },
     {
         theme: "AI Trends 2024-2025",
-        focus: "Le tendenze più importanti nel mondo dell'AI che ogni imprenditore deve conoscere",
-        keywords: ["trend", "futuro", "innovazione", "competitività"]
+        focus: "Le tendenze più importanti nel mondo dell'AI che ogni imprenditore italiano deve conoscere per rimanere competitivo",
+        keywords: ["trend", "futuro", "innovazione", "competitività", "mercato"]
     },
     {
         theme: "Tool AI per il Business",
-        focus: "I migliori strumenti di intelligenza artificiale per aumentare la produttività aziendale",
-        keywords: ["strumenti", "produttività", "software", "soluzioni"]
+        focus: "I migliori strumenti di intelligenza artificiale per aumentare la produttività aziendale e ottimizzare i processi",
+        keywords: ["strumenti", "produttività", "software", "soluzioni", "efficienza"]
     },
     {
         theme: "AI nel Marketing Digitale",
-        focus: "Come utilizzare l'AI per campagne marketing più efficaci e personalizzate",
-        keywords: ["marketing", "personalizzazione", "conversioni", "ROI"]
+        focus: "Come utilizzare l'AI per campagne marketing più efficaci, personalizzate e con ROI misurabile",
+        keywords: ["marketing", "personalizzazione", "conversioni", "ROI", "campagne"]
     },
     {
         theme: "Chatbot e Assistenti Virtuali",
-        focus: "Come i chatbot AI stanno trasformando il customer service e le vendite",
-        keywords: ["chatbot", "customer service", "assistenza", "vendite"]
+        focus: "Come i chatbot AI stanno trasformando il customer service, le vendite e l'assistenza clienti 24/7",
+        keywords: ["chatbot", "customer service", "assistenza", "vendite", "automazione"]
     }
 ];
 
-// Professional images from Unsplash for each category
+// Professional images from Unsplash
 const IMAGES = {
     "Automazione Aziendale con AI": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200&q=80",
     "Sicurezza e AI": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80",
@@ -82,42 +82,87 @@ async function generatePost() {
 
         console.log(`📝 Argomento selezionato: ${topic.theme}`);
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
         const prompt = `
-Sei un esperto copywriter e consulente AI per JONES TR DIGITAL, un'agenzia digitale italiana leader nel settore.
+Sei un esperto copywriter SEO e consulente AI per JONES TR DIGITAL, un'agenzia digitale italiana leader nel settore dell'intelligenza artificiale e automazione.
 
-SCRIVI UN ARTICOLO DI BLOG PROFESSIONALE su: "${topic.theme}"
+SCRIVI UN ARTICOLO DI BLOG PROFESSIONALE E DETTAGLIATO su: "${topic.theme}"
 Focus specifico: ${topic.focus}
 
-REQUISITI OBBLIGATORI:
-1. L'articolo DEVE essere in ITALIANO perfetto
-2. Lunghezza MINIMA: 800 parole (questo è FONDAMENTALE)
-3. Tono: professionale ma accessibile, come se parlassi a un imprenditore italiano
-4. Struttura con titoli H2 e H3 in formato Markdown
-5. Includi almeno 3 esempi pratici o casi d'uso reali
-6. Aggiungi statistiche o dati quando possibile (anche inventati ma realistici)
-7. Concludi con una call-to-action per JONES TR DIGITAL
+REQUISITI OBBLIGATORI (MOLTO IMPORTANTE):
+1. L'articolo DEVE essere in ITALIANO perfetto e professionale
+2. Lunghezza MINIMA ASSOLUTA: 1200 parole (circa 8000-10000 caratteri)
+3. Tono: professionale ma accessibile, scrivi come se parlassi a un imprenditore italiano che vuole capire come l'AI può aiutare il suo business
+4. Struttura con titoli ## H2 e ### H3 in formato Markdown
+5. Includi ALMENO 5 esempi pratici concreti o casi d'uso reali
+6. Aggiungi statistiche, dati o percentuali quando possibile (anche realistiche se non hai dati precisi)
+7. Usa elenchi puntati e numerati per migliorare la leggibilità
+8. Concludi con una call-to-action forte per JONES TR DIGITAL
 
-STRUTTURA ARTICOLO:
-- Introduzione coinvolgente (2-3 paragrafi)
-- Sezione 1: Cos'è e perché è importante (con sottosezioni)
-- Sezione 2: Vantaggi pratici per le aziende (con esempi)
-- Sezione 3: Come implementarlo nella tua azienda
-- Sezione 4: Errori da evitare
-- Conclusione con call-to-action
+STRUTTURA DETTAGLIATA DELL'ARTICOLO (SEGUILA RIGOROSAMENTE):
+
+**Introduzione** (3-4 paragrafi, circa 200 parole)
+- Cattura l'attenzione con un dato sorprendente o una domanda provocatoria
+- Spiega perché questo argomento è cruciale OGGI per le aziende italiane
+- Anticipa i benefici che il lettore otterrà leggendo l'articolo
+
+**## Cos'è ${topic.theme} e Perché è Fondamentale** (300-400 parole)
+- Definizione chiara e accessibile
+- Contesto storico o evoluzione recente
+- Perché le aziende italiane non possono più ignorare questo trend
+- ### Statistiche e Dati di Mercato
+  - Almeno 3 dati concreti sul mercato italiano/europeo
+
+**## I Vantaggi Concreti per le Aziende Italiane** (400-500 parole)
+- ### Vantaggio 1: [Titolo specifico]
+  - Spiegazione dettagliata
+  - Esempio pratico di un'azienda italiana (anche ipotetica ma realistica)
+- ### Vantaggio 2: [Titolo specifico]
+  - Spiegazione dettagliata
+  - Caso d'uso concreto
+- ### Vantaggio 3: [Titolo specifico]
+  - Spiegazione dettagliata
+  - ROI stimato o benefici misurabili
+
+**## Come Implementarlo nella Tua Azienda: Guida Pratica** (300-400 parole)
+- ### Step 1: [Titolo]
+  - Azione concreta da fare
+- ### Step 2: [Titolo]
+  - Azione concreta da fare
+- ### Step 3: [Titolo]
+  - Azione concreta da fare
+- Tempistiche realistiche
+- Budget indicativo
+
+**## Casi di Successo e Best Practices** (200-300 parole)
+- Almeno 2 esempi di aziende (anche settori generici come "un'e-commerce di moda" o "uno studio professionale")
+- Risultati ottenuti in termini numerici
+- Lezioni apprese
+
+**## Errori da Evitare Assolutamente** (200 parole)
+- Lista di 4-5 errori comuni
+- Conseguenze di ogni errore
+- Come evitarli
+
+**Conclusione e Call-to-Action** (150-200 parole)
+- Riassunto dei punti chiave
+- Invito all'azione: contattare JONES TR DIGITAL per una consulenza gratuita
+- Messaggio motivazionale finale
 
 RITORNA ESCLUSIVAMENTE un oggetto JSON valido con questa struttura:
 {
-    "title": "Titolo accattivante e SEO-friendly (max 60 caratteri)",
-    "slug": "url-friendly-slug-senza-caratteri-speciali",
-    "excerpt": "Riassunto coinvolgente di 150-200 caratteri che invogli a leggere",
-    "content": "CONTENUTO COMPLETO IN MARKDOWN con ## per H2 e ### per H3. MINIMO 800 PAROLE.",
+    "title": "Titolo accattivante, SEO-friendly e clickbait (max 60 caratteri)",
+    "slug": "url-friendly-slug-tutto-minuscolo-senza-caratteri-speciali",
+    "excerpt": "Riassunto coinvolgente di 180-200 caratteri che invogli a cliccare e leggere l'articolo completo",
+    "content": "CONTENUTO COMPLETO DELL'ARTICOLO IN MARKDOWN. MINIMO 1200 PAROLE. USA ## per H2 e ### per H3. SCRIVI TUTTO IL CONTENUTO, NON RIASSUMERE.",
     "category": "${topic.theme}"
 }
 
-IMPORTANTE: Il campo "content" deve contenere l'intero articolo formattato in Markdown, NON solo un riassunto.
+ATTENZIONE: Il campo "content" deve contenere l'INTERO articolo formattato in Markdown, NON un riassunto o una bozza. Scrivi TUTTO il contenuto seguendo la struttura sopra.
 `;
+
+        console.log("⏳ Generazione in corso (può richiedere 30-60 secondi)...");
 
         const result = await model.generateContent(prompt);
         const response = await result.response;
@@ -137,10 +182,11 @@ IMPORTANTE: Il campo "content" deve contenere l'intero articolo formattato in Ma
         const postData = JSON.parse(jsonString);
 
         console.log(`✅ Articolo generato: "${postData.title}"`);
-        console.log(`📊 Lunghezza contenuto: ${postData.content.length} caratteri`);
+        console.log(`📊 Lunghezza contenuto: ${postData.content.length} caratteri (${Math.round(postData.content.split(' ').length)} parole)`);
 
         // Ensure unique slug
-        const uniqueSlug = postData.slug.toLowerCase().replace(/[^a-z0-9-]/g, "-") + "-" + Date.now();
+        const slugBase = postData.slug.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-");
+        const uniqueSlug = `${slugBase}-${Date.now()}`;
 
         // Insert into Supabase
         const { data, error } = await supabase.from("blog_posts").insert([
@@ -161,8 +207,9 @@ IMPORTANTE: Il campo "content" deve contenere l'intero articolo formattato in Ma
             throw error;
         }
 
-        console.log("🎉 Articolo pubblicato con successo!");
+        console.log("🎉 Articolo pubblicato con successo su Supabase!");
         console.log(`🔗 Slug: ${uniqueSlug}`);
+        console.log(`📸 Immagine: ${imageUrl}`);
 
     } catch (err) {
         console.error("❌ Errore generazione:", err.message || err);
