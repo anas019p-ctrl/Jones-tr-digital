@@ -9,11 +9,21 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
-const supabase = createClient(
-    process.env.SUPABASE_URL || "",
-    process.env.SUPABASE_SERVICE_ROLE_KEY || ""
-);
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const geminiKey = process.env.GEMINI_API_KEY;
+
+if (!supabaseUrl || !supabaseKey || !geminiKey) {
+    console.error("❌ Errore: Variabili d'ambiente mancanti!");
+    console.log("Assicurati di avere:");
+    console.log("- SUPABASE_URL o VITE_SUPABASE_URL");
+    console.log("- SUPABASE_SERVICE_ROLE_KEY");
+    console.log("- GEMINI_API_KEY");
+    process.exit(1);
+}
+
+const genAI = new GoogleGenerativeAI(geminiKey);
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function generatePost() {
     try {
