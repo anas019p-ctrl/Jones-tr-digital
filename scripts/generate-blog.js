@@ -31,34 +31,34 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
 // Topics rotation for variety
 const TOPICS = [
     {
-        theme: "Automazione Aziendale con AI",
-        focus: "Come le aziende italiane stanno automatizzando processi ripetitivi con l'intelligenza artificiale per risparmiare tempo e denaro",
-        keywords: ["automazione", "efficienza", "risparmio tempo", "ROI", "produttività"]
+        theme: "Automazione per Piccole Imprese",
+        focus: "Come JONES TR DIGITAL aiuta negozi e artigiani ad automatizzare ordini e appuntamenti per recuperare 2 ore al giorno",
+        keywords: ["piccole imprese", "efficienza", "risparmio tempo", "automazione locale"]
     },
     {
-        theme: "Sicurezza e AI",
-        focus: "Come l'intelligenza artificiale sta rivoluzionando la cybersecurity e la protezione dei dati aziendali",
-        keywords: ["sicurezza", "cybersecurity", "protezione dati", "minacce", "privacy"]
+        theme: "AI per Liberi Professionisti",
+        focus: "Semplificare la gestione clienti e la fatturazione con assistenti AI personalizzati: benefici per il privato e il professionista",
+        keywords: ["professionisti", "gestione clienti", "assistente virtuale", "flusso di lavoro"]
     },
     {
-        theme: "AI Trends 2024-2025",
-        focus: "Le tendenze più importanti nel mondo dell'AI che ogni imprenditore italiano deve conoscere per rimanere competitivo",
-        keywords: ["trend", "futuro", "innovazione", "competitività", "mercato"]
+        theme: "Sicurezza AI per il Privato",
+        focus: "Proteggere i propri dati e la propria identità digitale nell'era dell'intelligenza artificiale: consigli pratici",
+        keywords: ["sicurezza", "privacy", "protezione identità", "consigli AI"]
     },
     {
-        theme: "Tool AI per il Business",
-        focus: "I migliori strumenti di intelligenza artificiale per aumentare la produttività aziendale e ottimizzare i processi",
-        keywords: ["strumenti", "produttività", "software", "soluzioni", "efficienza"]
+        theme: "Automazione Flussi di Lavoro Personali",
+        focus: "Dalle email alla pianificazione: come l'AI di JONES TR DIGITAL organizza la tua giornata lavorativa senza stress",
+        keywords: ["produttività", "stress", "organizzazione", "workflow"]
     },
     {
-        theme: "AI nel Marketing Digitale",
-        focus: "Come utilizzare l'AI per campagne marketing più efficaci, personalizzate e con ROI misurabile",
-        keywords: ["marketing", "personalizzazione", "conversioni", "ROI", "campagne"]
+        theme: "Marketing AI per Attività Locali",
+        focus: "Come una piccola attività può competere con i grandi brand usando tool AI per i social media e la pubblicità",
+        keywords: ["marketing locale", "social media", "visibilità", "piccolo business"]
     },
     {
-        theme: "Chatbot e Assistenti Virtuali",
-        focus: "Come i chatbot AI stanno trasformando il customer service, le vendite e l'assistenza clienti 24/7",
-        keywords: ["chatbot", "customer service", "assistenza", "vendite", "automazione"]
+        theme: "Semplificazione Tecnologica",
+        focus: "Perché non serve essere esperti: come JONES TR DIGITAL rende l'AI accessibile a chiunque per migliorare la vita quotidiana",
+        keywords: ["semplicità", "accessibilità", "tecnologia amica", "formazione"]
     }
 ];
 
@@ -85,20 +85,20 @@ async function generatePost() {
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
         const prompt = `
-Sei un esperto copywriter SEO e consulente AI per JONES TR DIGITAL, un'agenzia digitale italiana leader nel settore dell'intelligenza artificiale e automazione.
+Sei un esperto copywriter SEO e consulente strategico per JONES TR DIGITAL. La tua missione è spiegare come l'intelligenza artificiale e l'automazione possano migliorare la vita e il lavoro di PICCOLE ATTIVITÀ (negozi, artigiani, piccoli studi) e PRIVATI/PROFESSIONISTI.
 
-SCRIVI UN ARTICOLO DI BLOG PROFESSIONALE E DETTAGLIATO su: "${topic.theme}"
+SCRIVI UN ARTICOLO DI BLOG PROFESSIONALE, RICCO E COINVOLGENTE su: "${topic.theme}"
 Focus specifico: ${topic.focus}
 
 REQUISITI OBBLIGATORI (MOLTO IMPORTANTE):
-1. L'articolo DEVE essere in ITALIANO perfetto e professionale
-2. Lunghezza MINIMA ASSOLUTA: 1200 parole (circa 8000-10000 caratteri)
-3. Tono: professionale ma accessibile, scrivi come se parlassi a un imprenditore italiano che vuole capire come l'AI può aiutare il suo business
-4. Struttura con titoli ## H2 e ### H3 in formato Markdown
-5. Includi ALMENO 5 esempi pratici concreti o casi d'uso reali
-6. Aggiungi statistiche, dati o percentuali quando possibile (anche realistiche se non hai dati precisi)
-7. Usa elenchi puntati e numerati per migliorare la leggibilità
-8. Concludi con una call-to-action forte per JONES TR DIGITAL
+1. L'articolo DEVE essere in ITALIANO perfetto, empatico e persuasivo.
+2. Lunghezza MINIMA ASSOLUTA: 1200 parole (circa 8000-10000 caratteri). Deve essere "stra-ricco" di informazioni e consigli pratici.
+3. Tono: Diretta, amichevole ma professionale. Parla ai benefici concreti: "risparmio tempo", "meno stress", "più guadagno", "vita più semplice".
+4. Struttura con titoli ## H2 e ### H3 in formato Markdown.
+5. Includi ALMENO 5 esempi pratici legati a piccole attività locali o flussi di lavoro personali.
+6. Aggiungi statistiche, dati o percentuali realistiche.
+7. Ogni articolo deve avere un taglio unico e trattare un argomento diverso (non ripeterti).
+8. Concludi con una call-to-action forte che spieghi che JONES TR DIGITAL gestisce tutto questo per il cliente, rendendo la tecnologia accessibile a tutti.
 
 STRUTTURA DETTAGLIATA DELL'ARTICOLO (SEGUILA RIGOROSAMENTE):
 

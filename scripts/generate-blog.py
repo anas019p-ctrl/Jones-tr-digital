@@ -30,34 +30,34 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 # Topics with rotation
 TOPICS = [
     {
-        "theme": "Automazione Aziendale con AI",
-        "focus": "Come le aziende italiane stanno automatizzando processi ripetitivi con l'intelligenza artificiale",
-        "keywords": ["automazione", "efficienza", "risparmio tempo", "ROI"]
+        "theme": "Automazione per Piccole Imprese",
+        "focus": "Come JONES TR DIGITAL aiuta negozi e artigiani ad automatizzare ordini e appuntamenti per recuperare tempo",
+        "keywords": ["piccole imprese", "efficienza", "risparmio tempo"]
     },
     {
-        "theme": "Sicurezza e AI",
-        "focus": "Come l'intelligenza artificiale sta rivoluzionando la cybersecurity e protezione dati",
-        "keywords": ["sicurezza", "cybersecurity", "protezione dati", "minacce"]
+        "theme": "AI per Liberi Professionisti",
+        "focus": "Semplificare la gestione clienti e la fatturazione con assistenti AI personalizzati",
+        "keywords": ["professionisti", "gestione clienti", "assistente virtuale"]
     },
     {
-        "theme": "AI Trends 2024-2025",
-        "focus": "Le tendenze più importanti nel mondo dell'AI che ogni imprenditore deve conoscere",
-        "keywords": ["trend", "futuro", "innovazione", "competitività"]
+        "theme": "Sicurezza AI per il Privato",
+        "focus": "Proteggere i propri dati e la propria identità digitale nell'era dell'intelligenza artificiale",
+        "keywords": ["sicurezza", "privacy", "protezione identità"]
     },
     {
-        "theme": "Tool AI per il Business",
-        "focus": "I migliori strumenti di intelligenza artificiale per aumentare la produttività aziendale",
-        "keywords": ["strumenti", "produttività", "software", "soluzioni"]
+        "theme": "Automazione Flussi di Lavoro Personali",
+        "focus": "Dalle email alla pianificazione: come l'AI organizza la tua giornata lavorativa senza stress",
+        "keywords": ["produttività", "stress", "organizzazione", "workflow"]
     },
     {
-        "theme": "AI nel Marketing Digitale",
-        "focus": "Come utilizzare l'AI per campagne marketing più efficaci e personalizzate",
-        "keywords": ["marketing", "personalizzazione", "conversioni", "ROI"]
+        "theme": "Marketing AI per Attività Locali",
+        "focus": "Come una piccola attività può competere con i grandi brand usando tool AI",
+        "keywords": ["marketing locale", "social media", "visibilità"]
     },
     {
-        "theme": "Chatbot e Assistenti Virtuali",
-        "focus": "Come i chatbot AI stanno trasformando il customer service e le vendite",
-        "keywords": ["chatbot", "customer service", "assistenza", "vendite"]
+        "theme": "Semplificazione Tecnologica",
+        "focus": "Perché non serve essere esperti: come JONES TR DIGITAL rende l'AI accessibile a chiunque",
+        "keywords": ["semplicità", "accessibilità", "tecnologia"]
     }
 ]
 
@@ -83,39 +83,27 @@ def generate_post():
         model = genai.GenerativeModel('gemini-1.5-flash-latest')
         
         prompt = f"""
-Sei un esperto copywriter e consulente AI per JONES TR DIGITAL, un'agenzia digitale italiana leader nel settore.
+Sei un esperto copywriter SEO per JONES TR DIGITAL. La tua missione è spiegare come l'AI e l'automazione migliorano la vita di PICCOLE ATTIVITÀ e PRIVATI.
 
-SCRIVI UN ARTICOLO DI BLOG PROFESSIONALE su: "{topic['theme']}"
+SCRIVI UN ARTICOLO DI BLOG PROFESSIONALE E COINVOLGENTE su: "{topic['theme']}"
 Focus specifico: {topic['focus']}
 
-REQUISITI OBBLIGATORI:
-1. L'articolo DEVE essere in ITALIANO perfetto
-2. Lunghezza MINIMA: 1000 parole (questo è FONDAMENTALE)
-3. Tono: professionale ma accessibile, come se parlassi a un imprenditore italiano
-4. Struttura con titoli H2 e H3 in formato Markdown
-5. Includi almeno 4 esempi pratici o casi d'uso reali
-6. Aggiungi statistiche o dati quando possibile
-7. Concludi con una call-to-action per JONES TR DIGITAL
-
-STRUTTURA ARTICOLO:
-- Introduzione coinvolgente (3 paragrafi)
-- Sezione 1: Cos'è e perché è importante (con sottosezioni)
-- Sezione 2: Vantaggi pratici per le aziende (con esempi)
-- Sezione 3: Come implementarlo nella tua azienda
-- Sezione 4: Casi di successo
-- Sezione 5: Errori da evitare
-- Conclusione con call-to-action
+REQUISITI:
+1. ITALIANO perfetto, empatico e persuasivo.
+2. Lunghezza MINIMA: 1200 parole.
+3. Tono: Amichevole ma professionale. Parla di risparmio tempo e meno stress.
+4. Struttura Markdown con ## e ###.
+5. Almeno 5 esempi pratici legati a piccole attività o vita quotidiana.
+6. Concludi con CTA forte per JONES TR DIGITAL.
 
 RITORNA ESCLUSIVAMENTE un oggetto JSON valido:
 {{
-    "title": "Titolo accattivante e SEO-friendly (max 60 caratteri)",
-    "slug": "url-friendly-slug-senza-caratteri-speciali",
-    "excerpt": "Riassunto coinvolgente di 150-200 caratteri",
-    "content": "CONTENUTO COMPLETO IN MARKDOWN. MINIMO 1000 PAROLE.",
+    "title": "Titolo SEO accattivante",
+    "slug": "url-friendly-slug",
+    "excerpt": "Riassunto coinvolgente",
+    "content": "CONTENUTO COMPLETO IN MARKDOWN. MINIMO 1200 PAROLE.",
     "category": "{topic['theme']}"
 }}
-
-IMPORTANTE: Il campo "content" deve contenere l'intero articolo formattato in Markdown.
 """
 
         response = model.generate_content(prompt)

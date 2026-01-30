@@ -85,13 +85,13 @@ const PricingSection = () => {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`relative glass-card p-8 flex flex-col hover-lift ${plan.popular ? "border-primary/50 scale-105 lg:scale-110" : ""
+              className={`relative glass-card p-8 flex flex-col hover-lift overflow-visible ${plan.popular ? "border-primary/50 scale-105 lg:scale-110 shadow-[0_0_40px_rgba(0,242,255,0.15)]" : ""
                 }`}
             >
               {/* Popular Badge */}
               {plan.popular && (
-                <div className="absolute -top-4 left-0 right-0 flex justify-center z-20">
-                  <div className="px-5 py-1.5 bg-gradient-to-r from-cyber-cyan to-cyber-purple rounded-full shadow-[0_0_20px_rgba(0,242,255,0.4)] border border-white/20">
+                <div className="absolute -top-4 left-0 right-0 flex justify-center z-[30]">
+                  <div className="px-5 py-1.5 bg-gradient-to-r from-cyber-cyan to-cyber-purple rounded-full shadow-[0_0_20px_rgba(0,242,255,0.4)] border border-white/20 whitespace-nowrap">
                     <span className="text-[10px] uppercase tracking-[0.2em] font-black text-white">
                       Consigliato
                     </span>
