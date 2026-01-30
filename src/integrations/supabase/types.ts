@@ -16,28 +16,58 @@ export type Database = {
     Tables: {
       contact_requests: {
         Row: {
+          company: string | null
           created_at: string | null
           email: string
           id: string
           message: string
           name: string
+          phone: string | null
           read: boolean | null
+          service_interest: string | null
+          status: string | null
         }
         Insert: {
+          company?: string | null
           created_at?: string | null
           email: string
           id?: string
           message: string
           name: string
+          phone?: string | null
           read?: boolean | null
+          service_interest?: string | null
+          status?: string | null
         }
         Update: {
+          company?: string | null
           created_at?: string | null
           email?: string
           id?: string
           message?: string
           name?: string
+          phone?: string | null
           read?: boolean | null
+          service_interest?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
+      newsletter_subscribers: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
         }
         Relationships: []
       }

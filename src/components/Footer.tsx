@@ -1,16 +1,37 @@
 import { Mail, Linkedin, Instagram, Twitter, Shield, Facebook, Youtube } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Footer() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
-  const handleNewsletter = (e: React.FormEvent) => {
+  const handleNewsletter = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubscribed(true);
-    setEmail('');
-    setTimeout(() => setSubscribed(false), 5000);
+    if (!email) return;
+
+    try {
+      const { error } = await supabase
+        .from('newsletter_subscribers')
+        .insert([{ email }]);
+
+      if (error) {
+        if (error.code === '23505') {
+          // Already subscribed
+          setSubscribed(true);
+        } else {
+          throw error;
+        }
+      } else {
+        setSubscribed(true);
+      }
+
+      setEmail('');
+      setTimeout(() => setSubscribed(false), 5000);
+    } catch (err) {
+      console.error('Error subscribing to newsletter:', err);
+    }
   };
 
   return (
