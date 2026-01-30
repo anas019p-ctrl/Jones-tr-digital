@@ -11,6 +11,7 @@ import PricingSection from "@/components/PricingSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
+import TeamSection from "@/components/TeamSection";
 
 const AnimatedHUD = () => {
   return (
@@ -156,6 +157,7 @@ const Index = () => {
         </section>
 
         <AboutSection />
+        <TeamSection />
         <PricingSection />
         <TestimonialsSection />
         <FAQSection />

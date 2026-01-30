@@ -6,6 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalBackground from "./components/GlobalBackground";
 import Index from "./pages/Index";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Portfolio from "./pages/Portfolio";
 import HowItWorks from "./pages/HowItWorks";
 import FAQ from "./pages/FAQ";
@@ -45,6 +47,8 @@ const App = () => (
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
                 <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/come-funziona" element={<HowItWorks />} />
                 <Route path="/faq" element={<FAQ />} />

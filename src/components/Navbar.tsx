@@ -81,6 +81,8 @@ export default function Navbar() {
                                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                             </button>
                         )}
+                        <Link to="/come-funziona" className="text-sm font-medium hover:text-cyber-cyan transition-colors">Come Funziona</Link>
+                        <Link to="/blog" className="text-sm font-medium hover:text-cyber-cyan transition-colors">Blog</Link>
                         <Link to="/login" className="text-xs font-bold uppercase dark:text-white/70 text-void/70 hover:text-cyber-cyan transition-colors">
                             Accedi
                         </Link>
