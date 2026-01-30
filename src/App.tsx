@@ -29,6 +29,7 @@ import AdminContacts from "./pages/AdminContacts";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ChatAssistant from "./components/ChatAssistant";
+import ScrollToTop from "./components/ScrollToTop";
 
 import { ThemeProvider } from "next-themes";
 
@@ -42,6 +43,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">
