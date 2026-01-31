@@ -58,9 +58,20 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center bg-background text-foreground overflow-hidden pt-20">
 
-      {/* Background Orbs */}
-      <div className="absolute top-1/4 -right-20 w-[600px] h-[600px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] bg-accent/5 blur-[100px] rounded-full pointer-events-none" />
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src="/assets/hero-bg.jpg"
+          alt="Background"
+          className="w-full h-full object-cover opacity-50 brightness-[0.7] contrast-[1.1]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background" />
+      </div>
+
+      {/* Background Orbs (Moderated) */}
+      <div className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-primary/10 blur-[130px] rounded-full pointer-events-none z-0" />
+      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-accent/5 blur-[100px] rounded-full pointer-events-none z-0" />
 
       <div className="container mx-auto px-6 z-10">
         <div className="max-w-4xl">

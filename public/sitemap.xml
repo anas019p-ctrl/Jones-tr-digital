@@ -2,22 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jonestrdigital.vercel.app/</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2026-01-31</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://jonestrdigital.vercel.app/blog</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2026-01-31</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://jonestrdigital.vercel.app/come-funziona</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2026-01-31</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://jonestrdigital.vercel.app/privacy</loc>
-    <lastmod>2024-01-30</lastmod>
+    <lastmod>2026-01-31</lastmod>
     <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://jonestrdigital.vercel.app/blog/ai-automazione-trasformare-azienda-2025-1769812540</loc>
+    <lastmod>2026-01-30</lastmod>
+    <priority>0.6</priority>
   </url>
 </urlset>
