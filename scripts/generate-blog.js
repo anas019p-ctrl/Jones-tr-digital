@@ -80,120 +80,60 @@ async function generatePost() {
 
         console.log(`📝 Argomento selezionato: ${topic.theme}`);
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
 
         const prompt = `
-Sei un esperto copywriter SEO e consulente strategico per JONES TR DIGITAL. La tua missione è spiegare come l'intelligenza artificiale e l'automazione possano migliorare la vita e il lavoro di PICCOLE ATTIVITÀ (negozi, artigiani, piccoli studi) e PRIVATI/PROFESSIONISTI.
+Agisci come il Senior Content Manager di JONES TR DIGITAL. Il tuo obiettivo è scrivere un articolo di blog completo, tecnico e ottimizzato SEO.
 
-SCRIVI UN ARTICOLO DI BLOG PROFESSIONALE, RICCO E COINVOLGENTE su: "${topic.theme}"
-Focus specifico: ${topic.focus}
+ARGOMENTO: '${topic.theme}'
+TARGET: Professionisti e piccole imprese che vogliono automatizzare il business.
 
-REQUISITI OBBLIGATORI (MOLTO IMPORTANTE):
-1. L'articolo DEVE essere in ITALIANO perfetto, empatico e persuasivo.
-2. Lunghezza MINIMA ASSOLUTA: 1200 parole (circa 8000-10000 caratteri). Deve essere "stra-ricco" di informazioni e consigli pratici.
-3. Tono: Diretta, amichevole ma professionale. Parla ai benefici concreti: "risparmio tempo", "meno stress", "più guadagno", "vita più semplice".
-4. Struttura con titoli ## H2 e ### H3 in formato Markdown.
-5. Includi ALMENO 5 esempi pratici legati a piccole attività locali o flussi di lavoro personali.
-6. Aggiungi statistiche, dati o percentuali realistiche.
-7. Ogni articolo deve avere un taglio unico e trattare un argomento diverso (non ripeterti).
-8. Concludi con una call-to-action forte che spieghi che JONES TR DIGITAL gestisce tutto questo per il cliente, rendendo la tecnologia accessibile a tutti.
+ISTRUZIONI DI GENERAZIONE:
+1. LUNGHEZZA: Scrivi almeno 1200-1500 parole di contenuto reale e utile.
+2. STRUTTURA: Usa un titolo H1 magnetico, un'introduzione che catturi l'attenzione, e almeno 5 paragrafi con titoli H2 e H3.
+3. IMMAGINI REALISTICHE: Inserisci nel testo il seguente codice per generare immagini automatiche e professionali:
+![Descrizione realistica](https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=1200)
 
-STRUTTURA DETTAGLIATA DELL'ARTICOLO (SEGUILA RIGOROSAMENTE):
+4. VIDEO: Inserisci un paragrafo 'Approfondimento Consigliato' descrivendo un video YouTube che spieghi come implementare queste soluzioni.
+5. FORMATO: Restituisci il testo solo in Markdown puro, senza commenti extra, pronto per il database Supabase.
 
-**Introduzione** (3-4 paragrafi, circa 200 parole)
-- Cattura l'attenzione con un dato sorprendente o una domanda provocatoria
-- Spiega perché questo argomento è cruciale OGGI per le aziende italiane
-- Anticipa i benefici che il lettore otterrà leggendo l'articolo
-
-**## Cos'è ${topic.theme} e Perché è Fondamentale** (300-400 parole)
-- Definizione chiara e accessibile
-- Contesto storico o evoluzione recente
-- Perché le aziende italiane non possono più ignorare questo trend
-- ### Statistiche e Dati di Mercato
-  - Almeno 3 dati concreti sul mercato italiano/europeo
-
-**## I Vantaggi Concreti per le Aziende Italiane** (400-500 parole)
-- ### Vantaggio 1: [Titolo specifico]
-  - Spiegazione dettagliata
-  - Esempio pratico di un'azienda italiana (anche ipotetica ma realistica)
-- ### Vantaggio 2: [Titolo specifico]
-  - Spiegazione dettagliata
-  - Caso d'uso concreto
-- ### Vantaggio 3: [Titolo specifico]
-  - Spiegazione dettagliata
-  - ROI stimato o benefici misurabili
-
-**## Come Implementarlo nella Tua Azienda: Guida Pratica** (300-400 parole)
-- ### Step 1: [Titolo]
-  - Azione concreta da fare
-- ### Step 2: [Titolo]
-  - Azione concreta da fare
-- ### Step 3: [Titolo]
-  - Azione concreta da fare
-- Tempistiche realistiche
-- Budget indicativo
-
-**## Casi di Successo e Best Practices** (200-300 parole)
-- Almeno 2 esempi di aziende (anche settori generici come "un'e-commerce di moda" o "uno studio professionale")
-- Risultati ottenuti in termini numerici
-- Lezioni apprese
-
-**## Errori da Evitare Assolutamente** (200 parole)
-- Lista di 4-5 errori comuni
-- Conseguenze di ogni errore
-- Come evitarli
-
-**Conclusione e Call-to-Action** (150-200 parole)
-- Riassunto dei punti chiave
-- Invito all'azione: contattare JONES TR DIGITAL per una consulenza gratuita
-- Messaggio motivazionale finale
-
-RITORNA ESCLUSIVAMENTE un oggetto JSON valido con questa struttura:
-{
-    "title": "Titolo accattivante, SEO-friendly e clickbait (max 60 caratteri)",
-    "slug": "url-friendly-slug-tutto-minuscolo-senza-caratteri-speciali",
-    "excerpt": "Riassunto coinvolgente di 180-200 caratteri che invogli a cliccare e leggere l'articolo completo",
-    "content": "CONTENUTO COMPLETO DELL'ARTICOLO IN MARKDOWN. MINIMO 1200 PAROLE. USA ## per H2 e ### per H3. SCRIVI TUTTO IL CONTENUTO, NON RIASSUMERE.",
-    "category": "${topic.theme}"
-}
-
-ATTENZIONE: Il campo "content" deve contenere l'INTERO articolo formattato in Markdown, NON un riassunto o una bozza. Scrivi TUTTO il contenuto seguendo la struttura sopra.
+FOCUS TECNICO: ${topic.focus}
 `;
 
         console.log("⏳ Generazione in corso (può richiedere 30-60 secondi)...");
 
         const result = await model.generateContent(prompt);
         const response = await result.response;
-        let text = response.text();
+        const text = response.text().trim();
 
-        // Clean JSON from markdown code blocks
-        text = text.replace(/```json\n?/gi, "").replace(/```\n?/gi, "").trim();
+        console.log(`✅ Articolo generato (lunghezza: ${text.length} caratteri)`);
 
-        // Find JSON object
-        const jsonStart = text.indexOf("{");
-        const jsonEnd = text.lastIndexOf("}") + 1;
-        if (jsonStart === -1 || jsonEnd === 0) {
-            throw new Error("Risposta non contiene JSON valido");
+        // Extract title from first H1 or use a default
+        let title = "Nuovo Articolo AI";
+        const h1Match = text.match(/^#\s+(.+)$/m);
+        if (h1Match) {
+            title = h1Match[1].trim();
         }
 
-        const jsonString = text.substring(jsonStart, jsonEnd);
-        const postData = JSON.parse(jsonString);
-
-        console.log(`✅ Articolo generato: "${postData.title}"`);
-        console.log(`📊 Lunghezza contenuto: ${postData.content.length} caratteri (${Math.round(postData.content.split(' ').length)} parole)`);
-
-        // Ensure unique slug
-        const slugBase = postData.slug.toLowerCase().replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-");
+        // Generate slug
+        const slugBase = title.toLowerCase()
+            .replace(/[^a-z0-9\s-]/g, "")
+            .replace(/\s+/g, "-")
+            .replace(/-+/g, "-")
+            .trim();
         const uniqueSlug = `${slugBase}-${Date.now()}`;
+
+        // Create excerpt (first ~200 chars)
+        const excerpt = text.replace(/[#*`]/g, "").substring(0, 180).trim() + "...";
 
         // Insert into Supabase
         const { data, error } = await supabase.from("blog_posts").insert([
             {
-                title: postData.title,
+                title: title,
                 slug: uniqueSlug,
-                content: postData.content,
-                excerpt: postData.excerpt,
-                category: postData.category,
+                content: text,
+                excerpt: excerpt,
+                category: topic.theme,
                 image_url: imageUrl,
                 is_published: true,
                 author: "JONES TR Digital",

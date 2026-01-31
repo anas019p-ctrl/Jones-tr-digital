@@ -1,178 +1,157 @@
-import { Target, Lightbulb, Users, Rocket, Shield, Heart, Cpu, Code, Cog } from "lucide-react";
+import { Target, Lightbulb, Users, Rocket, Shield, Heart, Cpu, Code, Cog, Zap, Activity } from "lucide-react";
 import { motion } from "framer-motion";
-// import logo3D from "@/assets/logo-3d.png";
 import aboutTech from "@/assets/about-tech.png";
 
 const values = [
   {
     icon: Target,
     title: "Risultati Concreti",
-    description: "Non vendiamo fumo. Ogni progetto ha obiettivi chiari e misurabili.",
+    description: "Ogni progetto ha obiettivi chiari e misurabili.",
   },
   {
     icon: Lightbulb,
     title: "Semplicità",
-    description: "Tecnologia complessa resa semplice. Ti spieghiamo tutto passo passo.",
+    description: "Tecnologia complessa resa semplice per te.",
   },
   {
     icon: Users,
     title: "Ascoltiamo",
-    description: "Capiamo le tue esigenze prima di proporre soluzioni. Tu sei l'esperto del tuo business.",
+    description: "Capiamo le tue esigenze prima di agire.",
   },
   {
-    icon: Rocket,
+    icon: Zap,
     title: "Velocità",
-    description: "Il tuo tempo è prezioso. Consegniamo in tempi rapidi senza sacrificare la qualità.",
+    description: "Consegniamo rapidamente senza compromessi.",
   },
   {
     icon: Shield,
     title: "Affidabilità",
-    description: "Siamo sempre disponibili. Se hai un problema, lo risolviamo insieme.",
+    description: "Supporto costante per ogni tua necessità.",
   },
   {
-    icon: Heart,
-    title: "Passione",
-    description: "Amiamo vedere le piccole attività crescere grazie alla tecnologia.",
+    icon: Activity,
+    title: "Performance",
+    description: "Ottimizzazione continua per il massimo impatto.",
   },
 ];
 
 const AboutSection = () => {
   return (
-    <section id="chi-siamo" className="relative py-24 md:py-32 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/30 to-background" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/5 dark:bg-accent/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/4 left-0 w-80 h-80 bg-primary/5 dark:bg-primary/10 rounded-full blur-3xl" />
-
-      {/* Floating Automation Nodes */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
-        <motion.div
-          animate={{ x: [0, 20, 0], y: [0, -20, 0], rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity }}
-          className="absolute top-1/4 right-1/4"
-        >
-          <Cpu className="text-primary w-12 h-12" />
-        </motion.div>
-        <motion.div
-          animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
-          transition={{ duration: 15, repeat: Infinity }}
-          className="absolute bottom-1/3 left-1/4"
-        >
-          <Code className="text-accent w-10 h-10" />
-        </motion.div>
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute top-1/3 left-10"
-        >
-          <Cog className="text-primary/50 w-16 h-16" />
-        </motion.div>
+    <section id="chi-siamo" className="relative py-24 md:py-40 overflow-hidden bg-[#030305]">
+      {/* Enhanced Cyber Background for this section */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 blur-[100px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-purple-500/10 blur-[100px] rounded-full" />
+        <div className="absolute inset-0 cyber-grid opacity-10" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
+        <div className="grid lg:grid-cols-2 gap-20 items-center mb-32">
           {/* Left - Content */}
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              <span className="text-sm font-medium text-primary uppercase tracking-widest">Digital Hub</span>
-            </div>
+          <div className="space-y-12">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="inline-flex items-center gap-3 px-5 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20"
+            >
+              <Cpu size={16} className="text-cyan-400 animate-pulse" />
+              <span className="text-xs font-black text-cyan-400 uppercase tracking-[0.2em]">Next-Gen Digital Hub</span>
+            </motion.div>
 
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-[1.1]">
-              Automazione & Design
-              <br />
-              <span className="gradient-text">Il Futuro è qui.</span>
-            </h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="font-display text-5xl md:text-7xl font-black text-white leading-[1] tracking-tighter"
+            >
+              Automazione <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-[0_0_20px_rgba(0,242,255,0.3)]">
+                & Design Creativo.
+              </span>
+            </motion.h2>
 
-            <div className="space-y-4 text-muted-foreground text-lg">
+            <div className="space-y-6 text-gray-400 text-xl font-medium leading-relaxed max-w-xl">
               <p>
-                In <strong className="text-foreground">JONES TR DIGITAL</strong> trasformiamo la complessità in semplicità.
-                Utilizziamo le ultime tecnologie di <span className="text-primary font-medium">automazione</span> e
-                <span className="text-accent font-medium"> generazione AI</span> per creare siti ed app che lavorano per te.
+                In <strong className="text-white">JONES TR DIGITAL</strong> non creiamo solo siti.
+                Costruiamo motori di business automatizzati che lavorano 24/7 per te.
               </p>
               <p>
-                I nostri uffici digitali sono sempre attivi, pronti a sfornare soluzioni su misura
-                che scalano il tuo business in modo automatico e ripetitivo.
+                Utilizziamo l'Intelligenza Artificiale per ottimizzare ogni processo,
+                garantendoti scalabilità infinita e una presenza online che domina il mercato.
               </p>
             </div>
 
-            {/* Quick Stats */}
-            <div className="flex flex-wrap gap-8 pt-4">
-              <div className="glass-card p-4 text-center min-w-[120px]">
-                <div className="font-display text-3xl font-bold gradient-text">24/7</div>
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">Automazione</p>
-              </div>
-              <div className="glass-card p-4 text-center min-w-[120px]">
-                <div className="font-display text-3xl font-bold gradient-text">99%</div>
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">Efficienza</p>
-              </div>
-              <div className="glass-card p-4 text-center min-w-[120px]">
-                <div className="font-display text-3xl font-bold gradient-text">∞</div>
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">Scalabilità</p>
-              </div>
+            {/* Tech Stats Bar */}
+            <div className="flex flex-wrap gap-6">
+              {[
+                { val: "24/7", label: "AUTO_OPS" },
+                { val: "100%", label: "SYNC_HUB" },
+                { val: "∞", label: "SCALE_UP" }
+              ].map((s, i) => (
+                <div key={i} className="px-8 py-6 rounded-3xl bg-white/5 border border-white/10 flex flex-col items-center min-w-[140px] group hover:border-cyan-500/30 transition-all">
+                  <span className="text-3xl font-black text-white mb-1 group-hover:text-cyan-400 transition-colors">{s.val}</span>
+                  <span className="text-[10px] font-black text-gray-600 tracking-widest">{s.label}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right - Visual (New Image + Effects) */}
-          <div className="relative group">
+          {/* Right - Visual Interface */}
+          <div className="relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="relative z-10"
+              initial={{ opacity: 0, scale: 0.9, rotate: -2 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+              className="relative z-10 p-4 rounded-[40px] bg-white/5 border border-white/10 backdrop-blur-3xl overflow-hidden group shadow-2xl"
             >
-              <div className="glass-card p-4 overflow-hidden rounded-3xl border-primary/20 shadow-2xl shadow-primary/10 transition-all duration-500 group-hover:border-primary/50">
-                <img
-                  src={aboutTech}
-                  alt="Futuristic Workspace"
-                  className="w-full rounded-2xl object-cover hover:scale-105 transition-transform duration-700"
-                />
+              <img
+                src={aboutTech}
+                alt="Cyber-Tech Interface"
+                className="w-full rounded-[30px] object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
-                {/* Overlay Scanning Effect */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                <motion.div
-                  animate={{ top: ["0%", "100%", "0%"] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                  className="absolute left-0 right-0 h-0.5 bg-primary/50 shadow-[0_0_15px_rgba(34,211,238,0.8)] z-20 pointer-events-none"
-                />
-              </div>
+              {/* Scanline Effect */}
+              <motion.div
+                animate={{ top: ["0%", "100%", "0%"] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                className="absolute inset-x-0 h-[2px] bg-cyan-400 shadow-[0_0_20px_#00F2FF] z-20 pointer-events-none opacity-50"
+              />
 
-              {/* Floating Tech Labels */}
-              <div className="absolute -top-6 -left-6 bg-card border border-border px-4 py-2 rounded-xl text-xs font-bold text-primary shadow-lg animate-float">
-                NODE_GEN_SITE
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-card border border-border px-4 py-2 rounded-xl text-xs font-bold text-accent shadow-lg animate-float" style={{ animationDelay: "-2s" }}>
-                AUTO_APP_SYNC
-              </div>
+              {/* Overlay HUD */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#030305]/80 via-transparent to-transparent opacity-60" />
             </motion.div>
 
-            {/* Glow Background for image */}
-            <div className="absolute inset-0 bg-primary/20 blur-[100px] -z-10 rounded-full scale-125 opacity-30 animate-pulse" />
+            {/* Decorative Tech Nodes */}
+            <div className="absolute -top-12 -right-12 w-32 h-32 border border-cyan-500/20 rounded-full animate-spin-slow opacity-30" />
+            <div className="absolute -bottom-8 -left-8 w-24 h-24 border-dashed border-purple-500/30 rounded-full animate-reverse-spin opacity-20" />
           </div>
         </div>
 
-        {/* Values Grid */}
-        <div className="pt-12 border-t border-border/30">
-          <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground text-center mb-12">
-            Perché <span className="gradient-text">Sceglierci</span>
-          </h3>
+        {/* Values - Tech Grid */}
+        <div className="pt-24 border-t border-white/5">
+          <div className="text-center mb-20">
+            <h3 className="font-display text-3xl md:text-5xl font-black text-white mb-4">
+              I Nostri <span className="text-cyan-400">Core Values</span>
+            </h3>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {values.map((value, index) => (
-              <div
-                key={value.title}
-                className="glass-card p-6 flex items-start gap-4 hover-lift"
-                style={{ animationDelay: `${index * 100}ms` }}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {values.map((v, i) => (
+              <motion.div
+                key={v.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="p-8 rounded-3xl bg-white/[0.03] border border-white/5 hover:border-cyan-500/30 transition-all duration-500 group"
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                  <value.icon className="w-6 h-6 text-primary" />
+                <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-6 border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-all">
+                  <v.icon className="w-7 h-7 text-cyan-400" />
                 </div>
-                <div>
-                  <h4 className="font-display font-semibold text-foreground mb-1">
-                    {value.title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground">{value.description}</p>
-                </div>
-              </div>
+                <h4 className="text-xl font-black text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                  {v.title}
+                </h4>
+                <p className="text-gray-500 font-medium leading-relaxed">
+                  {v.description}
+                </p>
+              </motion.div>
             ))}
           </div>
         </div>
