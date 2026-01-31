@@ -80,7 +80,7 @@ async function generatePost() {
 
         console.log(`📝 Argomento selezionato: ${topic.theme}`);
 
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-002" });
 
         const prompt = `
 Agisci come il Senior Content Manager di JONES TR DIGITAL. Il tuo obiettivo è scrivere un articolo di blog completo, tecnico e ottimizzato SEO.

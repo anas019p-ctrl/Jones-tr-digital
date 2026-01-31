@@ -1,0 +1,56 @@
+name: generate-blog
+
+on:
+  schedule:
+    # Runs every day at 9 AM UTC
+    - cron: '0 9 * * *'
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  generate-blog:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Set up job
+        run: echo "Starting blog generation workflow"
+      
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Check required secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ]; then echo "SUPABASE_URL is missing"; exit 1; fi
+          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "SUPABASE_SERVICE_ROLE_KEY is missing"; exit 1; fi
+          if [ -z "$GEMINI_API_KEY" ]; then echo "GEMINI_API_KEY is missing"; exit 1; fi
+          echo "All required secrets are configured"
+      
+      - name: Run Blog Generator
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: node scripts/generate-blog.js
+      
+      - name: Post Setup Node.js
+        if: always()
+        run: echo "Blog generation workflow completed"
+      
+      - name: Post Checkout Repository
+        if: always()
+        run: echo "Repository checkout completed"
+      
+      - name: Complete job
+        if: always()
+        run: echo "Job finished"
