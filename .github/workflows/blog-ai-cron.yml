@@ -18,7 +18,19 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm install @google/generative-ai @supabase/supabase-js dotenv
+        run: npm install
+
+      - name: Check required secrets
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          missing=false
+          if [ -z "$SUPABASE_URL" ]; then echo "ERROR: SUPABASE_URL mancante"; missing=true; fi
+          if [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then echo "ERROR: SUPABASE_SERVICE_ROLE_KEY mancante"; missing=true; fi
+          if [ -z "$GEMINI_API_KEY" ]; then echo "ERROR: GEMINI_API_KEY mancante"; missing=true; fi
+          if [ "$missing" = true ]; then exit 1; fi
 
       - name: Run Blog Generator
         env:
